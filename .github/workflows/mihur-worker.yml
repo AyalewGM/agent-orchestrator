@@ -1,0 +1,41 @@
+name: Mihur draft generation worker
+on:
+  workflow_dispatch:
+    inputs:
+      write_pr:
+        description: Create draft PR in Mihur (false runs validation only)
+        type: boolean
+        default: false
+  schedule:
+    - cron: '17 12 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: mihur-draft-generation
+  cancel-in-progress: false
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest discover -s tests -v
+      - name: Generate and verify candidate
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          MIHUR_GITHUB_TOKEN: ${{ secrets.MIHUR_GITHUB_TOKEN }}
+          OPENAI_MODEL: gpt-5
+          WRITE_PR: ${{ github.event_name == 'workflow_dispatch' && inputs.write_pr }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ] || [ -z "$MIHUR_GITHUB_TOKEN" ]; then
+            echo "Required secrets not configured; no generation or writes."
+            exit 1
+          fi
+          if [ "$WRITE_PR" = "true" ]; then
+            python -m director.agent_worker --write
+          else
+            python -m director.agent_worker
+          fi
