@@ -18,6 +18,7 @@ TRACK = {
     501: ("ontario-grade-9", "authenticated learning journey / signed publisher"),
     505: ("ontario-grade-9", "accessible rational frontend"),
     511: ("ontario-grade-9", "atomic attempt persistence"),
+    514: ("ontario-grade-9", "authenticated published learning flow"),
 }
 GATES = ("math", "pedagogy", "standards", "security", "architecture", "muse_qa",
          "authenticated_journey", "frontend_accessibility", "publisher_signatures",
@@ -69,6 +70,7 @@ def snapshot(fetch=fetch_json, *, token: str = "") -> dict:
                 501: "Assessment Backend / Content Publishing + independent Pedagogy",
                 505: "Frontend/MVE + Muse accessibility QA",
                 511: "Assessment Backend + independent Security/Architecture/DB QA",
+                514: "Frontend / Assessment Backend + independent Muse QA",
             }[number],
         })
     return {
