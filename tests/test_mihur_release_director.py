@@ -22,7 +22,7 @@ class ReleaseDirectorTests(unittest.TestCase):
         data = snapshot(self.fake)
         self.assertFalse(data["release_authorized"])
         self.assertEqual(data["learner_available"], "NOT_VERIFIED")
-        self.assertEqual([p["pr"] for p in data["pr_dependencies"]], [501, 505, 511])
+        self.assertEqual([p["pr"] for p in data["pr_dependencies"]], [501, 505, 511, 514])
         for p in data["pr_dependencies"]:
             self.assertEqual(p["activation"], "NOT_VERIFIED")
             self.assertEqual(set(p["gates"]), set(GATES))
