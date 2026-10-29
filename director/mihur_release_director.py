@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
@@ -54,16 +55,46 @@ def snapshot(fetch=fetch_json, *, token: str = "") -> dict:
         if not isinstance(pr, dict) or pr.get("number") != number:
             raise RuntimeError(f"missing pull request {number}")
         commit_sha = pr["head"]["sha"]
+        if not re.fullmatch('[0-9a-f]{40}', commit_sha):
+            raise RuntimeError('invalid PR head SHA')
         checks = fetch(f"/repos/{REPO}/commits/{commit_sha}/check-runs?per_page=100", token)
         raw_checks = checks.get("check_runs", []) if isinstance(checks, dict) else []
-        ci = [{"name": c.get("name"), "status": c.get("status"),
-               "conclusion": c.get("conclusion")} for c in raw_checks]
+        ci = [{"id": c.get("id"), "name": c.get("name"), "status": c.get("status"),
+               "conclusion": c.get("conclusion"), "head_sha": c.get("head_sha"),
+               "url": c.get("html_url"), "app_id": c.get("app", {}).get("id")}
+              for c in raw_checks]
+        reviews = []
+        for page in range(1, 11):
+            batch = fetch(f"/repos/{REPO}/pulls/{number}/reviews?per_page=100&page={page}", token)
+            if not isinstance(batch, list):
+                raise RuntimeError('invalid review inventory')
+            reviews.extend({"id": r.get('id'), "sha": r.get('commit_id'),
+                            "subject": r.get('user', {}).get('login'),
+                            "verdict": r.get('state'), "url": r.get('html_url')}
+                           for r in batch)
+            if len(batch) < 100:
+                break
+        else:
+            raise RuntimeError('review inventory exceeds bounded pagination')
+        from .policy import projects
+        required = projects()['mihur']['required_checks']
+        complete_checks = isinstance(checks, dict) and checks.get('total_count', len(ci)) <= 100
+        checks_passed = complete_checks and all(
+            any(c['name'] == name and c['head_sha'] == commit_sha
+                and c['status'] == 'completed' and c['conclusion'] == 'success' for c in ci)
+            for name in required)
+        # Names alone cannot authenticate the check producer or required-check policy.
+        confirmed = fetch(f"/repos/{REPO}/pulls/{number}", token)
+        if confirmed['head']['sha'] != commit_sha:
+            raise RuntimeError('PR moved during collection; retry a fresh snapshot')
         # Even a successful CI is not independent approval or activation.
         results.append({
             "pr": number, "url": pr.get("html_url"), "course": course,
             "responsibility": responsibility, "sha": commit_sha,
             "state": pr.get("state"), "merged": bool(pr.get("merged_at")),
             "draft": bool(pr.get("draft")), "checks": ci,
+            "checks_complete": complete_checks, "configured_checks_passed": checks_passed,
+            "ci_policy_verified": False, "required_checks": required, "reviews": reviews,
             "gates": {gate: "UNVERIFIED" for gate in GATES},
             "activation": "NOT_VERIFIED",
             "next_owner": {
