@@ -100,3 +100,46 @@ release acceptance. A trusted local CI collector submits `record_ci`; agent-gene
 claims cannot be used as its input policy. Completed local milestones are finalized;
 changes to accepted artifacts require a new scoped task and fresh evidence rather than
 reusing a historical acceptance.
+
+## Codex Desktop follow-up audit and implementation
+
+Re-audited the existing feature head `bf8f5f6a490f6a8b2e19592f5a947a10b89c8f91`,
+AGENTS.md, eight existing profiles, skill, registry, Python modules, all three Actions
+workflows, open orchestration PR #4 and current open Mihur PR inventory. #3/#4 remain
+unmerged and must be reused. This follow-up updates #4 rather than adding another PR.
+
+The concrete missing capability was persistent *agent handoff*, not task scheduling.
+`director.desktop` now derives durable role assignments from the existing task state,
+uses the same atomic claim/fence and review/CI APIs, and records bound Desktop sessions,
+delivery deadlines, tokens and idempotent results. It never spawns another orchestration
+service or independent scheduler. The active native Codex Director remains the executor.
+Six additional profiles cover Backend, Frontend, Content, Integration, DevOps and test
+execution; the original independent reviewers retain their separate lanes.
+
+All six accepts plus head-bound CI move Desktop-enrolled tasks into a separate
+`integration` state. An independent Integration accept is required before local queue
+dependencies unblock. Failed tests, specialist rejection, integration rejection and
+expired agent deliveries automatically route back to implementation within the existing
+three-attempt budget. Each role delivery is separately capped at three; active bound
+sessions are capped by project policy. Disabled projects reject both new and active
+assignment execution. Ledger mutations roll back together using nested savepoints.
+
+Validation: 54 tests passed, compilation passed, updated skill validated. The offline
+flow uses real temporary Git commits and executed validator subprocesses; synthetic
+independent contract fixtures reject a leaking hint on attempt one, resume after a DB
+reconnect and accept the correction on attempt two. Exact SHAs, test commands and
+verdict history are in `docs/evidence/desktop-demo-20261028.json`. This is explicitly
+not product approval or a live-model acceptance run. The independent development
+review reproduced a policy-revocation bypass, then verified the fix and all 54 tests,
+plus complete three-by-three delivery/implementation exhaustion ending blocked.
+
+Remaining limits: local Director/session/CI provenance is trusted, not cryptographically
+authenticated; a malicious process with ledger access can impersonate callers. An
+active Desktop host/session is required, recommended automation is not installed,
+and provider cost/process limits are external. GitHub protection and authentic specialist
+acceptance must still be verified. No product activation, real learner-data modification,
+production deployment or merge capability was added. The full Ontario student-availability
+objective and subsequent Maryland/Grade 8 milestones remain gated product work.
+
+See `docs/CODEX_DESKTOP.md` for exact enabling commands, native session procedure,
+result schemas, recommended thread automation and explicit release boundary.

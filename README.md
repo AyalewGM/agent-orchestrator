@@ -102,3 +102,28 @@ running leases, and cannot execute later content phases. Do not put the ledger i
 Actions caches or ephemeral artifacts. Model budgets must be enforced by the provider
 and isolated runner before unattended model dispatch is added. Reports never infer
 student availability from draft question counts, CI or mock browser tests.
+
+
+## Codex Desktop Director and correction-loop demonstration
+
+[Desktop runbook](docs/CODEX_DESKTOP.md) documents the supported active-session
+workflow, exact pilot-enabling commands, evidence contracts and recommended thread
+automation. Backend, Frontend, Content, Integration, DevOps and test-runner profiles
+extend the existing Director and independent reviewers.
+
+```bash
+python3 -m director.demo --root /tmp/mihur-desktop-demo
+python3 -m director.desktop --db /tmp/mihur-desktop-demo/demo.sqlite status
+```
+
+This offline contract demo makes real Git commits and executes content tests, then
+uses **synthetic deterministic reviewer fixtures** to exercise a rejection, automatic
+correction, restart, independent gates and integration readiness. It never supplies
+Mihur specialist approval, student availability or release authorization.
+
+For live Desktop use, `director.desktop enroll/tick/bind/submit` persist handoffs for
+existing tasks. The active native Director spawns separate Codex subagents, verifies
+actual session/artifact/CI provenance and submits results; failures route back without
+manual chat rotation. Integration is a separate gate before dependent tasks can start.
+This remains a trusted local bridge, not a cryptographic identity gateway or a
+standalone background model service. No production activation path is provided.

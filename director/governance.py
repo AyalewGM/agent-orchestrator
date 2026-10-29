@@ -6,6 +6,7 @@ import hashlib
 import json
 import re
 import time
+import uuid
 
 from .core import MAX_ATTEMPTS, seed_mihur
 
@@ -14,12 +15,17 @@ REVIEW_GATES = ('engineering', 'mathematics', 'pedagogy', 'standards', 'security
 
 @contextmanager
 def transaction(db):
-    db.execute('BEGIN IMMEDIATE')
+    nested = db.in_transaction
+    savepoint = 'nested_' + uuid.uuid4().hex
+    db.execute('SAVEPOINT ' + savepoint if nested else 'BEGIN IMMEDIATE')
     try:
         yield
-        db.execute('COMMIT')
+        db.execute('RELEASE SAVEPOINT ' + savepoint if nested else 'COMMIT')
     except BaseException:
-        if db.in_transaction:
+        if nested:
+            db.execute('ROLLBACK TO SAVEPOINT ' + savepoint)
+            db.execute('RELEASE SAVEPOINT ' + savepoint)
+        elif db.in_transaction:
             db.execute('ROLLBACK')
         raise
 
@@ -33,6 +39,12 @@ def schema(db):
             if name not in columns:
                 db.execute(f'ALTER TABLE tasks ADD COLUMN {name} {kind}')
         statements = '''
+            CREATE TABLE IF NOT EXISTS desktop_tasks (
+                task_id TEXT PRIMARY KEY REFERENCES tasks(id), base_sha TEXT NOT NULL,
+                implementer TEXT NOT NULL, required_checks TEXT NOT NULL, integrated_sha TEXT);
+            CREATE TABLE IF NOT EXISTS session_roles (
+                task_id TEXT REFERENCES tasks(id), subject TEXT NOT NULL, role TEXT NOT NULL,
+                PRIMARY KEY(task_id,subject,role));
             CREATE TABLE IF NOT EXISTS dependencies (
                 task_id TEXT REFERENCES tasks(id), requires TEXT REFERENCES tasks(id),
                 PRIMARY KEY(task_id, requires), CHECK(task_id != requires));
@@ -146,7 +158,10 @@ def _advance(db, task_id, head, current):
     reviews = db.execute('SELECT count(*) FROM accepted WHERE task_id=? AND sha=?', (task_id, head)).fetchone()[0]
     ci = db.execute('SELECT passed FROM ci_evidence WHERE task_id=? AND sha=?', (task_id, head)).fetchone()
     if reviews == len(REVIEW_GATES) and ci and ci['passed']:
-        db.execute("UPDATE tasks SET status='completed', completed_at=?, blocker=NULL WHERE id=?", (current, task_id))
+        desktop = db.execute('SELECT 1 FROM desktop_tasks WHERE task_id=?', (task_id,)).fetchone()
+        db.execute("UPDATE tasks SET status=?, completed_at=?, blocker=? WHERE id=?",
+                   ('integration' if desktop else 'completed', None if desktop else current,
+                    'Independent integration check required' if desktop else None, task_id))
     elif reviews == len(REVIEW_GATES):
         db.execute("UPDATE tasks SET blocker='Exact-head CI evidence required' WHERE id=?", (task_id,))
 

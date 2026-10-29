@@ -1,0 +1,125 @@
+{
+  "scope": "SYNTHETIC_CONTRACT_DEMONSTRATION_NOT_PRODUCT_APPROVAL",
+  "demonstration": {
+    "actors": "SYNTHETIC_DETERMINISTIC_FIXTURES",
+    "trace": [
+      {
+        "attempt": 1,
+        "sha": "f493413b786169d442b2863e491d0af83fc314ab",
+        "command": [
+          "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+          "-c",
+          "import json,sys; from director.agent_worker import validate; validate(json.load(open(sys.argv[1])))",
+          "/private/tmp/director-desktop-demo-final/worktrees/4de7ec625079e6a410a679a3/candidate.json"
+        ],
+        "test_exit_code": 0,
+        "rejection": "pedagogy_reviewer"
+      },
+      {
+        "attempt": 2,
+        "sha": "4c4bf634bc1a7374f49dbb4cbc57d987935292c8",
+        "command": [
+          "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+          "-c",
+          "import json,sys; from director.agent_worker import validate; validate(json.load(open(sys.argv[1])))",
+          "/private/tmp/director-desktop-demo-final/worktrees/bc6e4c796169e11312573702/candidate.json"
+        ],
+        "test_exit_code": 0
+      }
+    ],
+    "product_approval": false,
+    "product_tests_executed": false
+  },
+  "integration_ready": [
+    {
+      "task_id": "mihur:synthetic-demo:content",
+      "integrated_sha": "4c4bf634bc1a7374f49dbb4cbc57d987935292c8"
+    }
+  ],
+  "release_authorized": false,
+  "learner_available": "NOT_VERIFIED",
+  "review_verdicts": [
+    {
+      "event_id": "c773d0644cb74901b70a36979570fd78:9c6c97b7097b4a28bc16f1c3a9ac396f",
+      "sha": "f493413b786169d442b2863e491d0af83fc314ab",
+      "gate": "engineering",
+      "subject": "synthetic-engineering_reviewer",
+      "verdict": "accept",
+      "source": "synthetic://demo/1/engineering_reviewer",
+      "created_at": 1793236799
+    },
+    {
+      "event_id": "2ffaa477f8e84123a51e4671b3a9ac39:c108df748787476499cf726c96e35847",
+      "sha": "f493413b786169d442b2863e491d0af83fc314ab",
+      "gate": "mathematics",
+      "subject": "synthetic-math_reviewer",
+      "verdict": "accept",
+      "source": "synthetic://demo/1/math_reviewer",
+      "created_at": 1793236799
+    },
+    {
+      "event_id": "74fe379ab10d450a8728336462163c0f:1269ba689950491d88fd52180247b90f",
+      "sha": "f493413b786169d442b2863e491d0af83fc314ab",
+      "gate": "pedagogy",
+      "subject": "synthetic-pedagogy_reviewer",
+      "verdict": "reject",
+      "source": "synthetic://demo/1/pedagogy_reviewer",
+      "created_at": 1793236799
+    },
+    {
+      "event_id": "8fc6ff523a4842f4993f5ee93a2d3ac0:759c56b3d5c34db592ba37e1cec2e36f",
+      "sha": "4c4bf634bc1a7374f49dbb4cbc57d987935292c8",
+      "gate": "engineering",
+      "subject": "synthetic-engineering_reviewer",
+      "verdict": "accept",
+      "source": "synthetic://demo/2/engineering_reviewer",
+      "created_at": 1793236799
+    },
+    {
+      "event_id": "e8840abac5e044bfbebb932e2c468b50:cb1d6bf75d3c4bdf9d563735c4d1bc2c",
+      "sha": "4c4bf634bc1a7374f49dbb4cbc57d987935292c8",
+      "gate": "mathematics",
+      "subject": "synthetic-math_reviewer",
+      "verdict": "accept",
+      "source": "synthetic://demo/2/math_reviewer",
+      "created_at": 1793236799
+    },
+    {
+      "event_id": "23488483c2f3423b950a04b085647333:8f3a520b256a42ea988724ae25805b57",
+      "sha": "4c4bf634bc1a7374f49dbb4cbc57d987935292c8",
+      "gate": "pedagogy",
+      "subject": "synthetic-pedagogy_reviewer",
+      "verdict": "accept",
+      "source": "synthetic://demo/2/pedagogy_reviewer",
+      "created_at": 1793236799
+    },
+    {
+      "event_id": "8f0e46cc44054fffa1bef97652afbe7b:2265c5d3890e4547a04b4f2021f0724a",
+      "sha": "4c4bf634bc1a7374f49dbb4cbc57d987935292c8",
+      "gate": "standards",
+      "subject": "synthetic-standards_reviewer",
+      "verdict": "accept",
+      "source": "synthetic://demo/2/standards_reviewer",
+      "created_at": 1793236799
+    },
+    {
+      "event_id": "49ea46ca46ef4cddbee329b34de720cb:1fd738ab7f304cf7bd02b3bd67039725",
+      "sha": "4c4bf634bc1a7374f49dbb4cbc57d987935292c8",
+      "gate": "security",
+      "subject": "synthetic-security_reviewer",
+      "verdict": "accept",
+      "source": "synthetic://demo/2/security_reviewer",
+      "created_at": 1793236799
+    },
+    {
+      "event_id": "2cb413d3a6374dfaa561165ed40a6ee6:83430f0a265146f5ac2f5d697dc76024",
+      "sha": "4c4bf634bc1a7374f49dbb4cbc57d987935292c8",
+      "gate": "qa",
+      "subject": "synthetic-qa_reviewer",
+      "verdict": "accept",
+      "source": "synthetic://demo/2/qa_reviewer",
+      "created_at": 1793236799
+    }
+  ],
+  "attempts": 2
+}

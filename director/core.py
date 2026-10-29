@@ -47,7 +47,7 @@ def seed_mihur(db: sqlite3.Connection) -> int:
     return count
 
 
-def claim(db: sqlite3.Connection, worker: str, now: int | None = None, lease_seconds: int = 900, *, managed_only: bool = False, max_running: int = 3, project: str | None = None, phase: str | None = None) -> str | None:
+def claim(db: sqlite3.Connection, worker: str, now: int | None = None, lease_seconds: int = 900, *, managed_only: bool = False, max_running: int = 3, project: str | None = None, phase: str | None = None, desktop_only: bool = False) -> str | None:
     if not worker.strip() or lease_seconds <= 0 or lease_seconds > 3600 or not 1 <= max_running <= 16:
         raise ValueError("worker and positive lease_seconds are required")
     current = int(time.time()) if now is None else now
@@ -59,6 +59,7 @@ def claim(db: sqlite3.Connection, worker: str, now: int | None = None, lease_sec
         # Enforce both sequential phases and sequential curriculum stages.
         row = db.execute("""SELECT t.id FROM tasks t
             WHERE t.status IN ('pending','running') AND (?=0 OR t.managed=1)
+            AND (?=0 OR t.id IN (SELECT task_id FROM desktop_tasks))
             AND (? IS NULL OR t.project=?) AND (? IS NULL OR t.phase=?) AND t.attempts < ?
             AND (t.status='pending' OR t.lease_until <= ?)
             AND NOT EXISTS (
@@ -70,7 +71,7 @@ def claim(db: sqlite3.Connection, worker: str, now: int | None = None, lease_sec
             )
             AND NOT EXISTS (SELECT 1 FROM dependencies d JOIN tasks p ON p.id=d.requires
                 WHERE d.task_id=t.id AND p.status!='completed')
-            ORDER BY t.priority, t.id LIMIT 1""", (int(managed_only), project, project, phase, phase, MAX_ATTEMPTS, current, len(GATES))).fetchone()
+            ORDER BY t.priority, t.id LIMIT 1""", (int(managed_only), int(desktop_only), project, project, phase, phase, MAX_ATTEMPTS, current, len(GATES))).fetchone()
         if row is None:
             db.execute("COMMIT")
             return None

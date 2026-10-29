@@ -31,3 +31,5 @@ jobs:
           export NATIVE_DB_PATH="$(mktemp -u).sqlite"
           python -m director.native --db "$NATIVE_DB_PATH" init
           python -m director.native --db "$NATIVE_DB_PATH" status
+      - name: End-to-end Desktop contract demonstration
+        run: python -m director.demo --root "$RUNNER_TEMP/desktop-contract-demo"

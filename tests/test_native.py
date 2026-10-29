@@ -83,7 +83,7 @@ class NativeTests(unittest.TestCase):
         from director.policy import projects
         root = Path(__file__).resolve().parents[1]
         profiles = list((root / '.codex/agents').glob('*.toml'))
-        self.assertEqual(len(profiles), 8)
+        self.assertGreaterEqual(len(profiles), 8)
         for path in profiles:
             profile = tomllib.loads(path.read_text())
             self.assertTrue(all(profile.get(k) for k in ('name', 'description', 'developer_instructions')))
