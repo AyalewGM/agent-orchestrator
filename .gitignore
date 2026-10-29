@@ -3,3 +3,8 @@ __pycache__/
 *.sqlite
 *.sqlite-journal
 .venv/
+
+.director/
+*.dispatcher.lock
+*.sock
+/director-event-config.local.json

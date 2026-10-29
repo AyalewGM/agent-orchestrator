@@ -1,0 +1,13 @@
+{
+  "reviewed_sha": "02f51ea90d9a8c802b584f6fb8bd9c0c0da086bd",
+  "session": "/root/pr5_independent_security",
+  "verdict": "reject",
+  "finding": "Shared Desktop agents with ledger access can invent session identities and CI; no enforced authentication boundary",
+  "executed_tests": 54,
+  "release_approval": false,
+  "merge_blockers": [
+    "Protected ledger/session authority absent",
+    "Branch protection read denied HTTP403",
+    "No submitted GitHub reviews"
+  ]
+}

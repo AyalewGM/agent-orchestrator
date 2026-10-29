@@ -64,7 +64,8 @@ def claim(db: sqlite3.Connection, worker: str, now: int | None = None, lease_sec
             AND (t.status='pending' OR t.lease_until <= ?)
             AND NOT EXISTS (
                 SELECT 1 FROM tasks prior WHERE prior.project=t.project
-                AND prior.priority<t.priority AND (
+                AND prior.priority<t.priority
+                AND (t.lane IS NULL OR prior.lane IS NULL OR prior.lane=t.lane) AND (
                     prior.status!='completed' OR
                     (prior.managed=0 AND (SELECT count(*) FROM approvals a WHERE a.task_id=prior.id) < ?)
                 )
@@ -116,3 +117,26 @@ def status(db: sqlite3.Connection) -> list[dict]:
     return [dict(row) for row in db.execute("""SELECT t.id,t.status,t.attempts,t.worker,
         (SELECT count(*) FROM approvals a WHERE a.task_id=t.id) AS gates
         FROM tasks t ORDER BY t.priority,t.id""")]
+
+
+def enqueue_family(db, family: str, stage: str = 'ontario-9') -> str:
+    """Add concurrent content lanes beneath the existing curriculum milestones."""
+    import re
+    from .governance import transaction
+    if not re.fullmatch(r'[a-z0-9][a-z0-9._-]{0,79}', family) or stage not in STAGES:
+        raise ValueError('bounded family identity and known stage required')
+    task_id = f'mihur:{stage}:family:{family}'
+    audit = f'mihur:{stage}:audit'
+    aggregate = f'mihur:{stage}:content'
+    with transaction(db):
+        for parent in (audit, aggregate):
+            row = db.execute('SELECT * FROM tasks WHERE id=?', (parent,)).fetchone()
+            if not row or not row['managed']:
+                raise ValueError('existing managed curriculum milestones required')
+            if parent == aggregate and row['status'] != 'pending':
+                raise ValueError('aggregate content milestone already started')
+        db.execute("INSERT OR IGNORE INTO tasks(id,project,stage,phase,priority,managed,lane) VALUES(?,'mihur',?,'content',?,1,?)",
+                   (task_id,stage,STAGES.index(stage)*100+1,family))
+        db.execute('INSERT OR IGNORE INTO dependencies VALUES(?,?)',(task_id,audit))
+        db.execute('INSERT OR IGNORE INTO dependencies VALUES(?,?)',(aggregate,task_id))
+    return task_id

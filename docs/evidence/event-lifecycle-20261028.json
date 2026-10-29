@@ -1,0 +1,79 @@
+{
+  "kind": "SYNTHETIC_EVENT_LIFECYCLE_NOT_PRODUCT_APPROVAL",
+  "history": [
+    {
+      "id": 1,
+      "task_id": "one",
+      "state": "READY",
+      "sha": null,
+      "recorded_at": 1793241126
+    },
+    {
+      "id": 2,
+      "task_id": "one",
+      "state": "IMPLEMENTING",
+      "sha": null,
+      "recorded_at": 1793241126
+    },
+    {
+      "id": 3,
+      "task_id": "one",
+      "state": "TESTING",
+      "sha": "4fbe445733a492aa7bf0e2434e89c91095f6d664",
+      "recorded_at": 1793241126
+    },
+    {
+      "id": 4,
+      "task_id": "one",
+      "state": "REVIEWING",
+      "sha": "4fbe445733a492aa7bf0e2434e89c91095f6d664",
+      "recorded_at": 1793241126
+    },
+    {
+      "id": 5,
+      "task_id": "one",
+      "state": "READY",
+      "sha": "4fbe445733a492aa7bf0e2434e89c91095f6d664",
+      "recorded_at": 1793241127
+    },
+    {
+      "id": 6,
+      "task_id": "one",
+      "state": "IMPLEMENTING",
+      "sha": "4fbe445733a492aa7bf0e2434e89c91095f6d664",
+      "recorded_at": 1793241127
+    },
+    {
+      "id": 7,
+      "task_id": "one",
+      "state": "TESTING",
+      "sha": "178adc6eee91e7aa275cb0b1f1fa756d6900a2e9",
+      "recorded_at": 1793241127
+    },
+    {
+      "id": 8,
+      "task_id": "one",
+      "state": "REVIEWING",
+      "sha": "178adc6eee91e7aa275cb0b1f1fa756d6900a2e9",
+      "recorded_at": 1793241127
+    },
+    {
+      "id": 9,
+      "task_id": "one",
+      "state": "INTEGRATING",
+      "sha": "178adc6eee91e7aa275cb0b1f1fa756d6900a2e9",
+      "recorded_at": 1793241128
+    },
+    {
+      "id": 10,
+      "task_id": "one",
+      "state": "RELEASE_READY",
+      "sha": "178adc6eee91e7aa275cb0b1f1fa756d6900a2e9",
+      "recorded_at": 1793241128
+    }
+  ],
+  "implementation_attempts": 2,
+  "review_authority": "SYNTHETIC_GITHUB_FIXTURE",
+  "release_authorized": false,
+  "learner_available": "NOT_VERIFIED"
+}

@@ -26,7 +26,7 @@ GATES = ("math", "pedagogy", "standards", "security", "architecture", "muse_qa",
          "deployment", "learner_selectability")
 
 
-def fetch_json(path: str, token: str, *, base: str = "https://api.github.com") -> dict | list:
+def fetch_json(path: str, token: str, *, base: str = "https://api.github.com", timeout: float = 20) -> dict | list:
     if not path.startswith("/") or "//" in path or not base.startswith("https://"):
         raise ValueError("invalid request location")
     headers = {"Accept": "application/vnd.github+json", "User-Agent": "mihur-release-director/0.1",
@@ -35,7 +35,7 @@ def fetch_json(path: str, token: str, *, base: str = "https://api.github.com") -
         headers["Authorization"] = "Bearer " + token
     request = urllib.request.Request(base + path, headers=headers)
     try:
-        with urllib.request.urlopen(request, timeout=20) as response:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
             return json.load(response)
     except urllib.error.HTTPError as exc:
         raise RuntimeError(f"GitHub read failed (HTTP {exc.code})") from exc

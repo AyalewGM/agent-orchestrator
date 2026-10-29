@@ -1,0 +1,24 @@
+{
+  "reviewer": "/root/event_dispatcher_security_review",
+  "verdict": "bounded_development_accept",
+  "base_sha": "0f5f0898a3f2c661468d10f4edc59124c2c06dd4",
+  "tests_passed": 81,
+  "compileall": "passed",
+  "specialist_release_acceptance": false,
+  "fixed_findings": [
+    "stale-head readiness and descendant revocation",
+    "atomic returned-result notifications and recovery",
+    "immutable authenticated review source evidence",
+    "profile feature enforcement",
+    "lifetime contributor exclusion",
+    "bounded drain/launch deadlines",
+    "reserved concurrency for unconsumed completions"
+  ],
+  "files": {
+    "director/dispatcher.py": "68c0816a32bdd7ac5ad9774e852c7fb110c39117169c8d78cc520899f401a8ab",
+    "director/webhooks.py": "799b80f12e026ee474159aed7e66ddde60477e03d9f440317c51b576d7a02c53",
+    "director/app_server.py": "1eb7aacb7291c54d5da26589692a70d8ccb3b7baa4556726540ad45515c2d0e7",
+    "docs/EVENT_DISPATCHER.md": "2439b5634f4989cd024f3be4bb927e8bc9700fb279399ee371ed0153c3f7637f",
+    "config/dispatcher.example.json": "3dce5814f67db2cb22628f2b880342a245b79fca120ecc322201bf4069e694d9"
+  }
+}

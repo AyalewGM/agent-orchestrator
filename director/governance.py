@@ -8,7 +8,7 @@ import re
 import time
 import uuid
 
-from .core import MAX_ATTEMPTS, seed_mihur
+from .core import MAX_ATTEMPTS, PHASES, STAGES, seed_mihur
 
 REVIEW_GATES = ('engineering', 'mathematics', 'pedagogy', 'standards', 'security', 'qa')
 
@@ -35,7 +35,7 @@ def schema(db):
         # Additive migration preserves the original tasks and development approvals.
         columns = {r['name'] for r in db.execute('PRAGMA table_info(tasks)')}
         for name, kind in [('managed', 'INTEGER NOT NULL DEFAULT 0'), ('fence', 'TEXT'),
-                           ('head_sha', 'TEXT'), ('blocker', 'TEXT')]:
+                           ('head_sha', 'TEXT'), ('blocker', 'TEXT'), ('lane', 'TEXT')]:
             if name not in columns:
                 db.execute(f'ALTER TABLE tasks ADD COLUMN {name} {kind}')
         statements = '''
@@ -45,6 +45,11 @@ def schema(db):
             CREATE TABLE IF NOT EXISTS session_roles (
                 task_id TEXT REFERENCES tasks(id), subject TEXT NOT NULL, role TEXT NOT NULL,
                 PRIMARY KEY(task_id,subject,role));
+            CREATE TABLE IF NOT EXISTS evidence_events (
+                event_id TEXT PRIMARY KEY, task_id TEXT NOT NULL REFERENCES tasks(id),
+                repository TEXT NOT NULL, sha TEXT NOT NULL, kind TEXT NOT NULL,
+                actor TEXT NOT NULL, source TEXT NOT NULL, payload TEXT NOT NULL,
+                created_at INTEGER NOT NULL);
             CREATE TABLE IF NOT EXISTS dependencies (
                 task_id TEXT REFERENCES tasks(id), requires TEXT REFERENCES tasks(id),
                 PRIMARY KEY(task_id, requires), CHECK(task_id != requires));
@@ -81,7 +86,9 @@ def initialize(db, now=None):
                    "WHERE project='mihur' AND managed=0 AND (status!='running' OR lease_until<=?)", (current,))
         if db.execute("SELECT 1 FROM tasks WHERE project='mihur' AND managed=0").fetchone():
             raise ValueError('active legacy worker: wait for its lease before migration')
-        rows = db.execute("SELECT id FROM tasks WHERE project='mihur' ORDER BY priority").fetchall()
+        milestone_ids = tuple(f'mihur:{stage}:{phase}' for stage in STAGES for phase in PHASES)
+        placeholders = ','.join('?' for _ in milestone_ids)
+        rows = db.execute(f"SELECT id FROM tasks WHERE id IN ({placeholders}) ORDER BY priority,id", milestone_ids).fetchall()
         for prior, task in zip(rows, rows[1:]):
             db.execute('INSERT OR IGNORE INTO dependencies VALUES (?,?)', (task['id'], prior['id']))
 
@@ -203,7 +210,12 @@ def report(db):
         row['review_verdicts'] = [dict(v) for v in db.execute('SELECT event_id,sha,gate,subject,verdict,source,created_at FROM verdicts WHERE task_id=? ORDER BY created_at,rowid', (r['id'],))]
         row.pop('fence')  # lease fences are for workers, not public reports
         rows.append(row)
-    return {'tasks': rows, 'merge_allowed': False, 'release_authorized': False,
+    observations = [dict(e) for e in db.execute('SELECT * FROM evidence_events ORDER BY created_at,rowid')]
+    return {'tasks': rows, 'evidence_observations': observations,
+            'approval_integrity': 'UNVERIFIED_SHARED_HOST',
+            'verified_independent_approvals': [],
+            'approval_boundary': 'Local role/session assertions are not authenticated approvals; a protected external authority is required',
+            'merge_allowed': False, 'release_authorized': False,
             'learner_available': 'NOT_VERIFIED',
             'blockers': ['Authenticated review gateway and GitHub protection not verified',
                          'Deployment, student activation and sensitive-data changes require explicit authorization']}
