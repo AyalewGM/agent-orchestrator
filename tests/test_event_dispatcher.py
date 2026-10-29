@@ -462,3 +462,45 @@ class EventTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.db.execute('SELECT deliveries FROM assignments WHERE id=?',(row['id'],)).fetchone()[0],1)
         self.db.execute("UPDATE assignments SET state='cancelled',deliveries=3 WHERE id=?",(row['id'],))
         self.assertNotIn(row['id'],[a['id'] for a in tick(self.db)])
+
+    async def test_confined_test_executor_cannot_fulfill_review_role(self):
+        from director.test_runner import ConfinedPytestAdapter,PytestConfig
+        from unittest.mock import AsyncMock
+        from director.desktop import _offer
+        self.reviewable()
+        task=self.db.execute("SELECT * FROM tasks WHERE id='one'").fetchone()
+        _offer(self.db,task,'engineering_reviewer')
+        offer=dict(self.db.execute("SELECT * FROM assignments WHERE role='engineering_reviewer'").fetchone())
+        self.db.execute("UPDATE assignments SET state='reserved',deliveries=1,lease_until=9999999999 WHERE id=?",(offer['id'],))
+        self.db.execute("INSERT INTO agent_runs(run_id,assignment_id,delivery,fence,lease_until,state,cwd) VALUES('wrong-executor',?,1,?,9999999999,'starting',?)",(offer['id'],task['fence'],str(self.source)))
+        adapter=ConfinedPytestAdapter(PytestConfig(Path('/not-used'),(),()))
+        adapter.run=AsyncMock()
+        d=Dispatcher(self.db,adapter_factory=lambda role:adapter)
+        await d.execute(offer,self.policy,str(self.source),'wrong-executor')
+        d.complete('wrong-executor')
+        adapter.run.assert_not_awaited()
+        self.assertEqual(self.db.execute("SELECT status FROM tasks WHERE id='one'").fetchone()[0],'blocked')
+        self.assertEqual(self.db.execute("SELECT count(*) FROM accepted").fetchone()[0],0)
+        self.assertNotEqual(self.db.execute('SELECT state FROM assignments WHERE id=?',(offer['id'],)).fetchone()[0],'done')
+
+    async def test_returned_test_result_cannot_count_as_review(self):
+        from director.test_runner import TestResult
+        from director.desktop import _offer
+        self.reviewable()
+        task=self.db.execute("SELECT * FROM tasks WHERE id='one'").fetchone()
+        _offer(self.db,task,'engineering_reviewer')
+        offer=dict(self.db.execute("SELECT * FROM assignments WHERE role='engineering_reviewer'").fetchone())
+        self.db.execute("UPDATE assignments SET state='reserved',deliveries=1,lease_until=9999999999 WHERE id=?",(offer['id'],))
+        self.db.execute("INSERT INTO agent_runs(run_id,assignment_id,delivery,fence,lease_until,state,cwd) VALUES('returned-test',?,1,?,9999999999,'starting',?)",(offer['id'],task['fence'],str(self.source)))
+        class WrongExecutor:
+            async def run(inner,*,prompt,cwd,persist_ids):
+                await persist_ids('os-confined-pytest:not-a-review','process')
+                return TestResult('os-confined-pytest:not-a-review','process','completed','{}',head_sha=self.base)
+        d=Dispatcher(self.db,adapter_factory=lambda role:WrongExecutor())
+        await d.execute(offer,self.policy,str(self.source),'returned-test')
+        d.complete('returned-test')
+        self.assertEqual(self.db.execute("SELECT status FROM tasks WHERE id='one'").fetchone()[0],'blocked')
+        self.assertEqual(self.db.execute('SELECT count(*) FROM accepted').fetchone()[0],0)
+        self.assertEqual(self.db.execute('SELECT state FROM assignments WHERE id=?',(offer['id'],)).fetchone()[0],'cancelled')
+        response=json.loads(self.db.execute("SELECT result FROM agent_runs WHERE run_id='returned-test'").fetchone()[0])
+        self.assertIsNone(response['response']['evidence']['tests_executed'])
