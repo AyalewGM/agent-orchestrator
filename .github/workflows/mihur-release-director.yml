@@ -1,0 +1,32 @@
+name: Mihur release director (read-only)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "31 13 * * *"
+permissions:
+  contents: read
+  checks: read
+  pull-requests: read
+  issues: read
+concurrency:
+  group: mihur-release-director
+  cancel-in-progress: false
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m unittest discover -s tests -v
+      - name: Refresh release inventory
+        env:
+          MIHUR_GITHUB_TOKEN: ${{ secrets.MIHUR_GITHUB_TOKEN }}
+        run: python -m director.mihur_release_director --out mihur-release-snapshot.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mihur-release-snapshot
+          path: mihur-release-snapshot.json
+          retention-days: 14
