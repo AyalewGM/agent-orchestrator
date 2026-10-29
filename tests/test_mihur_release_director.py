@@ -9,6 +9,8 @@ class ReleaseDirectorTests(unittest.TestCase):
             return {"object": {"sha": "a" * 40}}
         if path.endswith("/issues/488"):
             return {"number": 488}
+        if "/reviews?" in path:
+            return []
         if "/pulls/" in path:
             n = int(path.rsplit("/", 1)[-1])
             return {"number": n, "head": {"sha": str(n).zfill(40)},
@@ -40,3 +42,30 @@ class ReleaseDirectorTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class EvidenceIntegrityTests(unittest.TestCase):
+    fake = ReleaseDirectorTests.fake
+    def test_wrong_head_and_missing_check_never_pass(self):
+        data = snapshot(self.fake)
+        self.assertTrue(all(not p['configured_checks_passed'] for p in data['pr_dependencies']))
+        self.assertTrue(all(not p['ci_policy_verified'] for p in data['pr_dependencies']))
+
+    def test_moving_pr_head_aborts_snapshot(self):
+        seen = set()
+        def fetch(path, token):
+            result = self.fake(path, token)
+            if '/pulls/' in path and '/reviews?' not in path:
+                if path in seen:
+                    result['head']['sha'] = 'f' * 40
+                seen.add(path)
+            return result
+        with self.assertRaises(RuntimeError):
+            snapshot(fetch)
+
+    def test_truncated_checks_never_pass(self):
+        def fetch(path, token):
+            if '/check-runs?' in path:
+                return {'total_count': 101, 'check_runs': []}
+            return self.fake(path, token)
+        data = snapshot(fetch)
+        self.assertTrue(all(not p['checks_complete'] for p in data['pr_dependencies']))

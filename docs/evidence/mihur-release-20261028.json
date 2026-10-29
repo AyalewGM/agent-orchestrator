@@ -1,0 +1,838 @@
+{
+  "schema": "MIHUR_RELEASE_LEDGER_SNAPSHOT_V1",
+  "generated_at": "2026-10-29T01:06:28.427838+00:00",
+  "repository": "AyalewGM/ai-tutor",
+  "coordination_issue": "https://github.com/AyalewGM/ai-tutor/issues/488",
+  "main_sha": "288ff05f98a0feb1d02e101a9de74ac637bb0067",
+  "curriculum_priority": [
+    "ontario-grade-9",
+    "maryland-algebra-i",
+    "grade-8"
+  ],
+  "pr_dependencies": [
+    {
+      "pr": 501,
+      "url": "https://github.com/AyalewGM/ai-tutor/pull/501",
+      "course": "ontario-grade-9",
+      "responsibility": "authenticated learning journey / signed publisher",
+      "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+      "state": "open",
+      "merged": false,
+      "draft": false,
+      "checks": [
+        {
+          "id": 123182211749,
+          "name": "CodeQL",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "url": "https://github.com/AyalewGM/ai-tutor/runs/123182211749",
+          "app_id": 57789
+        },
+        {
+          "id": 123182070570,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "skipped",
+          "head_sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841135/job/123182070570",
+          "app_id": 15368
+        },
+        {
+          "id": 123182013417,
+          "name": "Semgrep SAST",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841108/job/123182013417",
+          "app_id": 15368
+        },
+        {
+          "id": 123182013161,
+          "name": "Trivy dependencies and secrets",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841108/job/123182013161",
+          "app_id": 15368
+        },
+        {
+          "id": 123182006888,
+          "name": "self-check",
+          "status": "completed",
+          "conclusion": "skipped",
+          "head_sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841135/job/123182006888",
+          "app_id": 15368
+        },
+        {
+          "id": 123182005548,
+          "name": "containers",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841112/job/123182005548",
+          "app_id": 15368
+        },
+        {
+          "id": 123182005204,
+          "name": "test",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841112/job/123182005204",
+          "app_id": 15368
+        },
+        {
+          "id": 123182005131,
+          "name": "validate",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841110/job/123182005131",
+          "app_id": 15368
+        },
+        {
+          "id": 123181991656,
+          "name": "Analyze (javascript-typescript)",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792835566/job/123181991656",
+          "app_id": 15368
+        },
+        {
+          "id": 123181991590,
+          "name": "Analyze (actions)",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792835566/job/123181991590",
+          "app_id": 15368
+        },
+        {
+          "id": 123181991248,
+          "name": "Analyze (python)",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792835566/job/123181991248",
+          "app_id": 15368
+        }
+      ],
+      "checks_complete": true,
+      "configured_checks_passed": false,
+      "ci_policy_verified": false,
+      "required_checks": [
+        "test",
+        "containers",
+        "Semgrep SAST",
+        "Trivy dependencies and secrets",
+        "CodeQL"
+      ],
+      "reviews": [
+        {
+          "id": 5647173790,
+          "sha": "16fe5d90fbe42a528f5775271f3dbacf5f395531",
+          "subject": "github-advanced-security[bot]",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5647173790"
+        },
+        {
+          "id": 5647631148,
+          "sha": "0168ddb514567c1f62ca09fc0e519d965e14cdcf",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5647631148"
+        },
+        {
+          "id": 5647862114,
+          "sha": "0fd3b56732f57dd68323f3f36088f6a525892770",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5647862114"
+        },
+        {
+          "id": 5647958881,
+          "sha": "0fd3b56732f57dd68323f3f36088f6a525892770",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5647958881"
+        },
+        {
+          "id": 5648233616,
+          "sha": "0122aac943012161c2621a9970412e4d66eda8a7",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5648233616"
+        },
+        {
+          "id": 5658697437,
+          "sha": "14c5e09fdfc9419d55ce8349559b0d894ca90909",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5658697437"
+        },
+        {
+          "id": 5661161871,
+          "sha": "14c5e09fdfc9419d55ce8349559b0d894ca90909",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5661161871"
+        },
+        {
+          "id": 5661312982,
+          "sha": "5d7310934661d4ab956349ceaeb3311936701f0b",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5661312982"
+        },
+        {
+          "id": 5661627161,
+          "sha": "97dc12ee8e1a303cdf16a408c5d5c583a46d959e",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5661627161"
+        },
+        {
+          "id": 5661688839,
+          "sha": "97dc12ee8e1a303cdf16a408c5d5c583a46d959e",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5661688839"
+        },
+        {
+          "id": 5661966649,
+          "sha": "e81f23b58b0ae6e812926a8ff5d7a10f1889aee0",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5661966649"
+        },
+        {
+          "id": 5662312120,
+          "sha": "a60812b333bdfa8bddf830a3dcb29fe8d23662f3",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5662312120"
+        },
+        {
+          "id": 5662313973,
+          "sha": "a60812b333bdfa8bddf830a3dcb29fe8d23662f3",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5662313973"
+        },
+        {
+          "id": 5669904138,
+          "sha": "5077b41b06eefd1c6e85ef9c391d77a6720e00fc",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5669904138"
+        },
+        {
+          "id": 5669941181,
+          "sha": "5077b41b06eefd1c6e85ef9c391d77a6720e00fc",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5669941181"
+        },
+        {
+          "id": 5674873953,
+          "sha": "5c62ae860bbff40258d85ef683c9829418fb09be",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5674873953"
+        },
+        {
+          "id": 5674905538,
+          "sha": "5c62ae860bbff40258d85ef683c9829418fb09be",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5674905538"
+        },
+        {
+          "id": 5676390775,
+          "sha": "8d64b5a36f61e1a78ca0eb6eca40a527030791bc",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5676390775"
+        },
+        {
+          "id": 5676422611,
+          "sha": "8d64b5a36f61e1a78ca0eb6eca40a527030791bc",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5676422611"
+        },
+        {
+          "id": 5677530784,
+          "sha": "11c98b26f9858da2dd922ab65f99aea4a48cdfe9",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5677530784"
+        },
+        {
+          "id": 5677563116,
+          "sha": "11c98b26f9858da2dd922ab65f99aea4a48cdfe9",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5677563116"
+        },
+        {
+          "id": 5678806553,
+          "sha": "0e5d8172d7eea8158cc1030c98a5e1f206106c72",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5678806553"
+        },
+        {
+          "id": 5678824981,
+          "sha": "0e5d8172d7eea8158cc1030c98a5e1f206106c72",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5678824981"
+        },
+        {
+          "id": 5682289706,
+          "sha": "16296d4e7749aff48787934a84e3a465d2676f89",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5682289706"
+        },
+        {
+          "id": 5682684164,
+          "sha": "496b8f3b4d373ab13bfa5a0239cdfbd77baacf86",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5682684164"
+        },
+        {
+          "id": 5682713650,
+          "sha": "496b8f3b4d373ab13bfa5a0239cdfbd77baacf86",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5682713650"
+        },
+        {
+          "id": 5682752406,
+          "sha": "496b8f3b4d373ab13bfa5a0239cdfbd77baacf86",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5682752406"
+        },
+        {
+          "id": 5682905874,
+          "sha": "496b8f3b4d373ab13bfa5a0239cdfbd77baacf86",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5682905874"
+        },
+        {
+          "id": 5683221875,
+          "sha": "b61353e42e6d936d2d7134866b5aa13a740f6992",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5683221875"
+        },
+        {
+          "id": 5684641496,
+          "sha": "da909785644dce5ce9b82f46f3512a664b5d0dfb",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5684641496"
+        },
+        {
+          "id": 5684826765,
+          "sha": "34bbf8dd0395cfcce7fa390ad5c7fab2199b60d4",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5684826765"
+        },
+        {
+          "id": 5685425225,
+          "sha": "cf06f265f6452115982428b28f903a09d09e507f",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5685425225"
+        },
+        {
+          "id": 5687573908,
+          "sha": "e1a82bb28fe65128ae0980f5a0ed0313f00f92c8",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5687573908"
+        },
+        {
+          "id": 5687916043,
+          "sha": "af45f670bfd93a93b49e008615d1fe79f9029e68",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5687916043"
+        },
+        {
+          "id": 5687969624,
+          "sha": "af45f670bfd93a93b49e008615d1fe79f9029e68",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5687969624"
+        },
+        {
+          "id": 5691371917,
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5691371917"
+        },
+        {
+          "id": 5691512514,
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5691512514"
+        }
+      ],
+      "gates": {
+        "math": "UNVERIFIED",
+        "pedagogy": "UNVERIFIED",
+        "standards": "UNVERIFIED",
+        "security": "UNVERIFIED",
+        "architecture": "UNVERIFIED",
+        "muse_qa": "UNVERIFIED",
+        "authenticated_journey": "UNVERIFIED",
+        "frontend_accessibility": "UNVERIFIED",
+        "publisher_signatures": "UNVERIFIED",
+        "deployment": "UNVERIFIED",
+        "learner_selectability": "UNVERIFIED"
+      },
+      "activation": "NOT_VERIFIED",
+      "next_owner": "Assessment Backend / Content Publishing + independent Pedagogy"
+    },
+    {
+      "pr": 505,
+      "url": "https://github.com/AyalewGM/ai-tutor/pull/505",
+      "course": "ontario-grade-9",
+      "responsibility": "accessible rational frontend",
+      "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+      "state": "open",
+      "merged": false,
+      "draft": true,
+      "checks": [
+        {
+          "id": 122647132006,
+          "name": "CodeQL",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "url": "https://github.com/AyalewGM/ai-tutor/runs/122647132006",
+          "app_id": 57789
+        },
+        {
+          "id": 122647059252,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "skipped",
+          "head_sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637269287/job/122647059252",
+          "app_id": 15368
+        },
+        {
+          "id": 122647011094,
+          "name": "self-check",
+          "status": "completed",
+          "conclusion": "skipped",
+          "head_sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637269287/job/122647011094",
+          "app_id": 15368
+        },
+        {
+          "id": 122647010429,
+          "name": "test",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637269274/job/122647010429",
+          "app_id": 15368
+        },
+        {
+          "id": 122647010220,
+          "name": "containers",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637269274/job/122647010220",
+          "app_id": 15368
+        },
+        {
+          "id": 122647010101,
+          "name": "Semgrep SAST",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637269276/job/122647010101",
+          "app_id": 15368
+        },
+        {
+          "id": 122647009799,
+          "name": "Trivy dependencies and secrets",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637269276/job/122647009799",
+          "app_id": 15368
+        },
+        {
+          "id": 122646996292,
+          "name": "Analyze (python)",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637263749/job/122646996292",
+          "app_id": 15368
+        },
+        {
+          "id": 122646996291,
+          "name": "Analyze (actions)",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637263749/job/122646996291",
+          "app_id": 15368
+        },
+        {
+          "id": 122646995988,
+          "name": "Analyze (javascript-typescript)",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637263749/job/122646995988",
+          "app_id": 15368
+        }
+      ],
+      "checks_complete": true,
+      "configured_checks_passed": true,
+      "ci_policy_verified": false,
+      "required_checks": [
+        "test",
+        "containers",
+        "Semgrep SAST",
+        "Trivy dependencies and secrets",
+        "CodeQL"
+      ],
+      "reviews": [
+        {
+          "id": 5669051329,
+          "sha": "6e580ee08f8083ade80ae969c1010ce47875f53d",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/505#pullrequestreview-5669051329"
+        },
+        {
+          "id": 5669908826,
+          "sha": "6e580ee08f8083ade80ae969c1010ce47875f53d",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/505#pullrequestreview-5669908826"
+        },
+        {
+          "id": 5678826668,
+          "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/505#pullrequestreview-5678826668"
+        }
+      ],
+      "gates": {
+        "math": "UNVERIFIED",
+        "pedagogy": "UNVERIFIED",
+        "standards": "UNVERIFIED",
+        "security": "UNVERIFIED",
+        "architecture": "UNVERIFIED",
+        "muse_qa": "UNVERIFIED",
+        "authenticated_journey": "UNVERIFIED",
+        "frontend_accessibility": "UNVERIFIED",
+        "publisher_signatures": "UNVERIFIED",
+        "deployment": "UNVERIFIED",
+        "learner_selectability": "UNVERIFIED"
+      },
+      "activation": "NOT_VERIFIED",
+      "next_owner": "Frontend/MVE + Muse accessibility QA"
+    },
+    {
+      "pr": 511,
+      "url": "https://github.com/AyalewGM/ai-tutor/pull/511",
+      "course": "ontario-grade-9",
+      "responsibility": "atomic attempt persistence",
+      "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+      "state": "open",
+      "merged": false,
+      "draft": true,
+      "checks": [
+        {
+          "id": 122344934104,
+          "name": "CodeQL",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "url": "https://github.com/AyalewGM/ai-tutor/runs/122344934104",
+          "app_id": 57789
+        },
+        {
+          "id": 122344601949,
+          "name": "Analyze (python)",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548241404/job/122344601949",
+          "app_id": 15368
+        },
+        {
+          "id": 122344601789,
+          "name": "Analyze (actions)",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548241404/job/122344601789",
+          "app_id": 15368
+        },
+        {
+          "id": 122344601291,
+          "name": "Analyze (javascript-typescript)",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548241404/job/122344601291",
+          "app_id": 15368
+        },
+        {
+          "id": 122344504599,
+          "name": "Trivy dependencies and secrets",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548215645/job/122344504599",
+          "app_id": 15368
+        },
+        {
+          "id": 122344504407,
+          "name": "self-check",
+          "status": "completed",
+          "conclusion": "skipped",
+          "head_sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548215265/job/122344504407",
+          "app_id": 15368
+        },
+        {
+          "id": 122344504181,
+          "name": "Semgrep SAST",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548215645/job/122344504181",
+          "app_id": 15368
+        },
+        {
+          "id": 122344503682,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "skipped",
+          "head_sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548215265/job/122344503682",
+          "app_id": 15368
+        },
+        {
+          "id": 122344501959,
+          "name": "test",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548215256/job/122344501959",
+          "app_id": 15368
+        },
+        {
+          "id": 122344501626,
+          "name": "containers",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548215256/job/122344501626",
+          "app_id": 15368
+        }
+      ],
+      "checks_complete": true,
+      "configured_checks_passed": true,
+      "ci_policy_verified": false,
+      "required_checks": [
+        "test",
+        "containers",
+        "Semgrep SAST",
+        "Trivy dependencies and secrets",
+        "CodeQL"
+      ],
+      "reviews": [
+        {
+          "id": 5661838854,
+          "sha": "9ceab7d739c044f66553380d104eaa87d93fa8f9",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/511#pullrequestreview-5661838854"
+        },
+        {
+          "id": 5661969895,
+          "sha": "9ceab7d739c044f66553380d104eaa87d93fa8f9",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/511#pullrequestreview-5661969895"
+        },
+        {
+          "id": 5672572316,
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/511#pullrequestreview-5672572316"
+        },
+        {
+          "id": 5682752020,
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/511#pullrequestreview-5682752020"
+        }
+      ],
+      "gates": {
+        "math": "UNVERIFIED",
+        "pedagogy": "UNVERIFIED",
+        "standards": "UNVERIFIED",
+        "security": "UNVERIFIED",
+        "architecture": "UNVERIFIED",
+        "muse_qa": "UNVERIFIED",
+        "authenticated_journey": "UNVERIFIED",
+        "frontend_accessibility": "UNVERIFIED",
+        "publisher_signatures": "UNVERIFIED",
+        "deployment": "UNVERIFIED",
+        "learner_selectability": "UNVERIFIED"
+      },
+      "activation": "NOT_VERIFIED",
+      "next_owner": "Assessment Backend + independent Security/Architecture/DB QA"
+    },
+    {
+      "pr": 514,
+      "url": "https://github.com/AyalewGM/ai-tutor/pull/514",
+      "course": "ontario-grade-9",
+      "responsibility": "authenticated published learning flow",
+      "sha": "9e3cdf4cfe736442d5b78531735436e6cab5d430",
+      "state": "open",
+      "merged": false,
+      "draft": true,
+      "checks": [
+        {
+          "id": 123186329915,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "skipped",
+          "head_sha": "9e3cdf4cfe736442d5b78531735436e6cab5d430",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40794123596/job/123186329915",
+          "app_id": 15368
+        },
+        {
+          "id": 123186285018,
+          "name": "self-check",
+          "status": "completed",
+          "conclusion": "skipped",
+          "head_sha": "9e3cdf4cfe736442d5b78531735436e6cab5d430",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40794123596/job/123186285018",
+          "app_id": 15368
+        },
+        {
+          "id": 123186283962,
+          "name": "test",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "9e3cdf4cfe736442d5b78531735436e6cab5d430",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40794123600/job/123186283962",
+          "app_id": 15368
+        },
+        {
+          "id": 123186283671,
+          "name": "containers",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "9e3cdf4cfe736442d5b78531735436e6cab5d430",
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40794123600/job/123186283671",
+          "app_id": 15368
+        }
+      ],
+      "checks_complete": true,
+      "configured_checks_passed": false,
+      "ci_policy_verified": false,
+      "required_checks": [
+        "test",
+        "containers",
+        "Semgrep SAST",
+        "Trivy dependencies and secrets",
+        "CodeQL"
+      ],
+      "reviews": [
+        {
+          "id": 5683222359,
+          "sha": "1d10e6a94f7f4a22399a49c721680fb2908f96ec",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/514#pullrequestreview-5683222359"
+        },
+        {
+          "id": 5685156623,
+          "sha": "65e1505345f844a76e7d14d6ce594221a2e16472",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/514#pullrequestreview-5685156623"
+        },
+        {
+          "id": 5685601882,
+          "sha": "872ac302212af12a64bc78f41dc06224353c1c12",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/514#pullrequestreview-5685601882"
+        },
+        {
+          "id": 5687634508,
+          "sha": "b6590556bdac7ea9b3b99a5a744464c5becf8698",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/514#pullrequestreview-5687634508"
+        },
+        {
+          "id": 5687969103,
+          "sha": "b6590556bdac7ea9b3b99a5a744464c5becf8698",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/514#pullrequestreview-5687969103"
+        },
+        {
+          "id": 5691591467,
+          "sha": "9e3cdf4cfe736442d5b78531735436e6cab5d430",
+          "subject": "AyalewGM",
+          "verdict": "COMMENTED",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/514#pullrequestreview-5691591467"
+        }
+      ],
+      "gates": {
+        "math": "UNVERIFIED",
+        "pedagogy": "UNVERIFIED",
+        "standards": "UNVERIFIED",
+        "security": "UNVERIFIED",
+        "architecture": "UNVERIFIED",
+        "muse_qa": "UNVERIFIED",
+        "authenticated_journey": "UNVERIFIED",
+        "frontend_accessibility": "UNVERIFIED",
+        "publisher_signatures": "UNVERIFIED",
+        "deployment": "UNVERIFIED",
+        "learner_selectability": "UNVERIFIED"
+      },
+      "activation": "NOT_VERIFIED",
+      "next_owner": "Frontend / Assessment Backend + independent Muse QA"
+    }
+  ],
+  "release_authorized": false,
+  "learner_available": "NOT_VERIFIED",
+  "note": "Read-only evidence inventory. Missing authenticated independent verdict, signed release, staging, seeded/enabled and synthetic learner availability proofs are never inferred."
+}
