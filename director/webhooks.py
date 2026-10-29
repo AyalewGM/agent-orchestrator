@@ -97,6 +97,17 @@ class GitHubReconciler:
         task = db.execute('SELECT * FROM tasks WHERE id=?', (task_id,)).fetchone()
         if not task:
             return 'NOT_ENROLLED'
+        author_ids = set(policy.get('contributors', [])) | {data['pr']['user']['id']}
+        unattributed = not bool(data['commits'])
+        for c in data['commits']:
+            if not c.get('author') or not c.get('committer'):
+                unattributed = True
+            author_ids.update(x['id'] for x in (c.get('author'), c.get('committer')) if x)
+        with transaction(db):
+            for subject in author_ids:
+                db.execute('INSERT OR IGNORE INTO contributors VALUES (?,?)',(task_id,'github:'+str(subject)))
+        author_ids.update(int(r['subject'].split(':',1)[1]) for r in db.execute(
+            "SELECT subject FROM contributors WHERE task_id=? AND subject GLOB 'github:[0-9]*'", (task_id,)))
         if task['head_sha'] != head:
             if task['status'] in ('review','integration','completed'):
                 with transaction(db):
@@ -118,17 +129,6 @@ class GitHubReconciler:
         checks_passed = data['checks'].get('total_count', 101) <= 100 and all(
             c.get('status') == 'completed' and c.get('conclusion') == 'success' for c in selected)
         failed = any(c.get('status') == 'completed' and c.get('conclusion') in ('failure', 'cancelled', 'timed_out', 'action_required') for c in selected)
-        author_ids = set(policy.get('contributors', [])) | {data['pr']['user']['id']}
-        unattributed = not bool(data['commits'])
-        for c in data['commits']:
-            if not c.get('author') or not c.get('committer'):
-                unattributed = True
-            author_ids.update(x['id'] for x in (c.get('author'), c.get('committer')) if x)
-        with transaction(db):
-            for subject in author_ids:
-                db.execute('INSERT OR IGNORE INTO contributors VALUES (?,?)',(task_id,'github:'+str(subject)))
-        author_ids.update(int(r['subject'].split(':',1)[1]) for r in db.execute(
-            "SELECT subject FROM contributors WHERE task_id=? AND subject GLOB 'github:[0-9]*'", (task_id,)))
         latest_reviews = {}
         for r in data['reviews']:
             subject = r.get('user', {}).get('id')

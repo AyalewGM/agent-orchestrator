@@ -183,11 +183,11 @@ class EventTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_native_profile_tool_restrictions_reach_appserver_configuration(self):
         from director.dispatcher import native_adapter
-        adapter=native_adapter('security_reviewer')
+        adapter=native_adapter('security_reviewer',local_evidence_only=True)
         self.assertIn('features.shell_tool=false',adapter.command)
         self.assertIn('features.apps=false',adapter.command)
         self.assertEqual(adapter.sandbox,'read-only')
-        self.assertEqual(native_adapter('test_runner').sandbox,'workspace-write')
+        self.assertEqual(native_adapter('test_runner',local_evidence_only=True).sandbox,'workspace-write')
 
     async def test_family_api_reuses_aggregate_milestone_dependencies(self):
         from director.core import enqueue_family
@@ -221,10 +221,14 @@ class EventTests(unittest.IsolatedAsyncioTestCase):
         offers=__import__('director.desktop',fromlist=['tick']).tick(self.db)
         a=offers[0]['id']
         d=Dispatcher(self.db,max_reconciliations=0)
+        import time
+        self.db.execute("UPDATE assignments SET state='reserved',deliveries=1,lease_until=? WHERE id=?",(int(time.time())+60,a))
         self.db.execute("INSERT INTO agent_runs(assignment_id,state,result) VALUES(?,'failed',?)",(a,json.dumps({'completed':False})))
         d.recover();await d.drain()
         self.assertEqual(self.db.execute('SELECT state FROM agent_runs').fetchone()[0],'consumed')
-        self.assertEqual(self.db.execute('SELECT status FROM tasks').fetchone()[0],'pending')
+        self.assertEqual(self.db.execute('SELECT status FROM tasks').fetchone()[0],'running')
+        self.assertEqual(self.db.execute('SELECT state FROM assignments').fetchone()[0],'queued')
+        self.assertEqual(self.db.execute('SELECT deliveries FROM assignments').fetchone()[0],1)
 
     async def test_past_github_contributors_cannot_review_after_rebase(self):
         self.reviewable();first=self.snapshot()
@@ -252,3 +256,154 @@ class EventTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.db.execute('SELECT turns FROM dispatcher_control').fetchone()[0],0)
         self.assertEqual(self.db.execute('SELECT count(*) FROM agent_runs').fetchone()[0],0)
         self.assertEqual(d.status()['stop_reason'],'EXECUTION_BUDGET_EXHAUSTED')
+
+    def blocked_test(self):
+        import time
+        from director import desktop
+        desktop.tick(self.db)
+        task=self.db.execute("SELECT * FROM tasks WHERE id='one'").fetchone()
+        # Real-run-shaped fixture: existing final implementation, first blocked test delivery.
+        self.db.execute("UPDATE tasks SET status='blocked',attempts=3,head_sha=? WHERE id='one'",(self.base,))
+        self.db.execute("INSERT INTO assignments(id,task_id,fence,role,state,deliveries,lease_until) VALUES('test-delivery','one',?,'test_runner','done',1,?)",(task['fence'],int(time.time())+60))
+        response={'head':self.base,'tests_passed':False,'verdict':'blocked','evidence':{'tests_executed':0,'blocker':'Read-only capture temp files denied'}}
+        encoded=json.dumps({'completed':True,'response':response})
+        self.db.execute("INSERT INTO agent_runs(run_id,assignment_id,delivery,fence,state,cwd,result) VALUES('blocked-run','test-delivery',1,?,'consumed',?,?)",(task['fence'],str(self.source),encoded))
+        return encoded
+
+    async def test_scoped_environment_resume_preserves_attempts_runs_and_events(self):
+        original=self.blocked_test();owner=self
+        class Authority(GitHubReconciler):
+            def snapshot(self,policy): return owner.snapshot()
+        class Adapter:
+            def __init__(self,role): self.role=role
+            async def run(self,*,prompt,cwd,persist_ids):
+                await persist_ids('resumed-'+self.role,None)
+                await persist_ids('resumed-'+self.role,'turn')
+                return AppServerResult('native','turn','completed',json.dumps({'head':owner.base,'tests_passed':True,'verdict':'accept'}))
+        d=Dispatcher(self.db,adapter_factory=Adapter,reconciler=Authority(),max_turns=2,max_reconciliations=0,budget_seconds=10)
+        d.resume_test('one','blocked-run','Fix read-only temp capture')
+        d.resume_test('one','blocked-run','Fix read-only temp capture')
+        await d.run()
+        self.assertEqual(self.db.execute("SELECT attempts FROM tasks WHERE id='one'").fetchone()[0],3)
+        self.assertEqual(self.db.execute("SELECT deliveries FROM assignments WHERE id='test-delivery'").fetchone()[0],2)
+        self.assertEqual(self.db.execute("SELECT result FROM agent_runs WHERE run_id='blocked-run'").fetchone()[0],original)
+        self.assertEqual(self.db.execute("SELECT count(*) FROM agent_runs WHERE assignment_id='test-delivery'").fetchone()[0],2)
+        self.assertIn('REVIEWING',[r['state'] for r in self.db.execute('SELECT state FROM state_history')])
+        self.assertEqual(self.db.execute('SELECT turns FROM dispatcher_control').fetchone()[0],2)
+
+    async def test_resume_refuses_real_failed_tests_or_exhausted_delivery_budget(self):
+        self.blocked_test();d=Dispatcher(self.db)
+        self.db.execute("UPDATE assignments SET deliveries=3 WHERE id='test-delivery'")
+        with self.assertRaises(ValueError): d.resume_test('one','blocked-run','retry')
+        self.db.execute("UPDATE assignments SET deliveries=1 WHERE id='test-delivery'")
+        self.db.execute("UPDATE agent_runs SET result=? WHERE run_id='blocked-run'",(json.dumps({'response':{'head':self.base,'verdict':'reject','evidence':{'tests_executed':22,'blocker':'tests failed'}}}),))
+        with self.assertRaises(ValueError): d.resume_test('one','blocked-run','retry')
+        self.assertEqual(self.db.execute("SELECT attempts FROM tasks WHERE id='one'").fetchone()[0],3)
+
+    async def test_expired_test_result_cannot_advance_review(self):
+        self.reviewable()
+        from director.desktop import tick,bind
+        a=bind(self.db,next(a['id'] for a in tick(self.db) if a['role']=='test_runner'),'test-session')
+        self.db.execute('UPDATE assignments SET lease_until=1 WHERE id=?',(a['id'],))
+        self.db.execute("INSERT INTO agent_runs(run_id,assignment_id,delivery,state,cwd,result) VALUES('expired',?,1,'returned',?,?)",(a['id'],str(self.source),json.dumps({'completed':True,'response':{'head':self.base,'tests_passed':True}})))
+        d=Dispatcher(self.db);d.complete('expired')
+        self.assertEqual(self.db.execute("SELECT state FROM agent_runs WHERE run_id='expired'").fetchone()[0],'expired')
+        self.assertNotEqual(self.db.execute('SELECT state FROM assignments WHERE id=?',(a['id'],)).fetchone()[0],'done')
+
+    async def test_stale_recovery_does_not_change_newer_completed_state(self):
+        offers=__import__('director.desktop',fromlist=['tick']).tick(self.db);a=offers[0]['id']
+        self.db.execute("UPDATE assignments SET state='cancelled',deliveries=1 WHERE id=?",(a,))
+        self.db.execute("INSERT INTO agent_runs(run_id,assignment_id,state) VALUES('stale',?,'running')",(a,))
+        self.db.execute("UPDATE tasks SET fence='new',status='completed',completed_at=100 WHERE id='one'")
+        self.db.execute('UPDATE desktop_tasks SET integrated_sha=?',(self.base,))
+        d=Dispatcher(self.db);d.recover()
+        self.assertEqual(self.db.execute('SELECT state FROM agent_runs').fetchone()[0],'superseded')
+        self.assertEqual(tuple(self.db.execute('SELECT status,completed_at FROM tasks').fetchone()),('completed',100))
+        self.assertEqual(self.db.execute('SELECT integrated_sha FROM desktop_tasks').fetchone()[0],self.base)
+
+    async def test_early_canonical_contributor_is_excluded_after_squash(self):
+        first=self.snapshot('b'*40);first['commits']=[{'author':{'id':100},'committer':{'id':1}}]
+        GitHubReconciler().apply(self.db,'one',self.policy,first,100)
+        self.reviewable();GitHubReconciler().apply(self.db,'one',self.policy,self.snapshot(),101)
+        self.assertTrue(self.db.execute("SELECT 1 FROM contributors WHERE subject='github:100'").fetchone())
+        self.assertIsNone(self.db.execute("SELECT 1 FROM accepted WHERE subject='github:100'").fetchone())
+
+    async def test_transport_failure_consumes_deliveries_not_implementation_attempts(self):
+        class Failure:
+            async def run(self,**kwargs): raise RuntimeError('provider unavailable')
+        owner=self
+        class Authority(GitHubReconciler):
+            def snapshot(self,policy): return owner.snapshot()
+        d=Dispatcher(self.db,adapter_factory=lambda role:Failure(),reconciler=Authority(),max_turns=4,max_reconciliations=0,budget_seconds=10)
+        await d.run()
+        self.assertEqual(self.db.execute("SELECT attempts FROM tasks WHERE id='one'").fetchone()[0],1)
+        self.assertEqual(self.db.execute("SELECT deliveries FROM assignments WHERE role='backend'").fetchone()[0],3)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM agent_runs').fetchone()[0],3)
+        self.assertEqual(self.db.execute('SELECT status FROM tasks').fetchone()[0],'blocked')
+
+    async def test_confined_pytest_failure_routes_to_implementation_once(self):
+        from director.test_runner import TestResult
+        self.reviewable()
+        owner=self
+        class FailedTests:
+            async def run(self, *, prompt, cwd, persist_ids):
+                await persist_ids('os-confined-pytest:failed-test',None)
+                await persist_ids('os-confined-pytest:failed-test','process:failed-test')
+                report={'head_sha':owner.base,'exit_code':1,'counts':{'failed':1},
+                        'approved_tests':['tests/test_fixed.py'],'output':'1 failed',
+                        'authenticated_approval':False}
+                return TestResult('os-confined-pytest:failed-test','process:failed-test',
+                                  'failed',json.dumps(report),head_sha=owner.base)
+        d=Dispatcher(self.db,adapter_factory=lambda role:FailedTests(),max_turns=1)
+        await d.dispatch()
+        await asyncio.gather(*list(d.active.values()))
+        run=self.db.execute('SELECT * FROM agent_runs').fetchone()
+        d.complete(run['run_id'])
+        self.assertEqual(tuple(self.db.execute('SELECT status,attempts FROM tasks').fetchone()),('pending',1))
+        self.assertEqual(self.db.execute('SELECT deliveries FROM assignments').fetchone()[0],1)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM agent_runs').fetchone()[0],1)
+        self.assertEqual(self.db.execute('SELECT state FROM agent_runs').fetchone()[0],'consumed')
+        self.assertEqual(self.db.execute('SELECT state FROM assignments').fetchone()[0],'done')
+        report=json.loads(self.db.execute("SELECT payload FROM evidence_events WHERE kind='native_execution'").fetchone()[0])
+        self.assertFalse(report['response']['tests_passed'])
+        self.assertEqual(report['response']['evidence']['counts'],{'failed':1})
+
+    async def test_confined_pytest_preflight_error_blocks_without_transport_retry(self):
+        from director.test_runner import TestRunnerError
+        self.reviewable()
+        class DeniedBeforeLaunch:
+            async def run(self, *, prompt, cwd, persist_ids):
+                raise TestRunnerError('OS confinement unavailable; product tests were not executed')
+        d=Dispatcher(self.db,adapter_factory=lambda role:DeniedBeforeLaunch(),max_turns=1)
+        await d.dispatch()
+        await asyncio.gather(*list(d.active.values()))
+        run=self.db.execute('SELECT * FROM agent_runs').fetchone()
+        d.complete(run['run_id'])
+        self.assertEqual(tuple(self.db.execute('SELECT status,attempts FROM tasks').fetchone()),('blocked',1))
+        self.assertEqual(self.db.execute('SELECT deliveries FROM assignments').fetchone()[0],1)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM agent_runs').fetchone()[0],1)
+        self.assertEqual(self.db.execute('SELECT state FROM agent_runs').fetchone()[0],'consumed')
+        report=json.loads(self.db.execute("SELECT payload FROM evidence_events WHERE kind='native_execution'").fetchone()[0])
+        self.assertEqual(report['response']['verdict'],'blocked')
+        self.assertEqual(report['response']['evidence']['tests_executed'],0)
+        self.assertIn('confinement unavailable',report['response']['evidence']['blocker'])
+
+    async def test_local_evidence_mode_cannot_claim_authenticate_or_hold_secrets(self):
+        from unittest.mock import patch
+        with patch.dict('os.environ',{'DIRECTOR_WEBHOOK_SECRET':'controller-secret'}):
+            with self.assertRaises(PermissionError): Dispatcher(self.db,local_evidence_only=True)
+        d=Dispatcher(self.db,local_evidence_only=True,max_reconciliations=0)
+        await d.dispatch()
+        self.assertEqual(self.db.execute('SELECT attempts FROM tasks').fetchone()[0],0)
+        with self.assertRaises(PermissionError): d.webhook({},b'{}',b'x'*32)
+
+    async def test_instruction_repair_preserves_policy_and_archives_previous_objective(self):
+        self.blocked_test();d=Dispatcher(self.db)
+        d.revise_objective('one','Only fix test-runner instructions','operator request')
+        updated=d.plans()['one'];original=dict(self.policy)
+        self.assertEqual(updated['checks'],original['checks'])
+        self.assertEqual(updated['reviewers'],original['reviewers'])
+        self.assertEqual(updated['source'],original['source'])
+        observation=json.loads(self.db.execute("SELECT payload FROM evidence_events WHERE kind='operator_instruction_repair'").fetchone()[0])
+        self.assertEqual(observation['prior_policy']['objective'],original['objective'])
+        self.assertEqual(self.db.execute('SELECT attempts FROM tasks').fetchone()[0],3)

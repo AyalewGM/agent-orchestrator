@@ -70,7 +70,7 @@ def _retry(db, task, reason):
                ('pending' if task['attempts'] < MAX_ATTEMPTS else 'blocked', reason, task['id']))
 
 
-def tick(db, now=None):
+def tick(db, now=None, *, claim_new=True):
     """Idempotently derive handoffs. No model execution or GitHub mutation."""
     current = int(time.time()) if now is None else now
     with transaction(db):
@@ -87,16 +87,16 @@ def tick(db, now=None):
                 _cancel(db, task['id'], task['fence'])
             if task['status'] == 'running' and task['lease_until'] <= current:
                 _retry(db, task, 'Implementation lease expired')
-            exhausted = db.execute("SELECT 1 FROM assignments WHERE task_id=? AND fence=? AND state='running' AND lease_until<=? AND deliveries>=?",
+            exhausted = db.execute("SELECT 1 FROM assignments WHERE task_id=? AND fence=? AND state IN ('running','reserved') AND lease_until<=? AND deliveries>=?",
                                    (task['id'], task['fence'], current, MAX_DELIVERIES)).fetchone()
             if exhausted and task['status'] not in ('completed', 'blocked', 'pending'):
                 _retry(db, task, 'Agent delivery budget exhausted')
             db.execute("UPDATE assignments SET state='queued',subject=NULL,token=NULL,lease_until=NULL "
-                       "WHERE task_id=? AND state='running' AND lease_until<=? AND deliveries<?",
+                       "WHERE task_id=? AND state IN ('running','reserved') AND lease_until<=? AND deliveries<?",
                        (task['id'], current, MAX_DELIVERIES))
     # Existing core.claim is the sole scheduler. Limit selection to opted-in work.
     for project, policy in projects().items():
-        if not policy.get('enabled'):
+        if not claim_new or not policy.get('enabled'):
             continue
         claim(db, f'desktop:{project}', now=current, lease_seconds=policy['lease_seconds'],
                     managed_only=True, max_running=policy['max_running'], project=project,
@@ -127,14 +127,18 @@ def pending(db):
             "WHERE a.state='queued' ORDER BY t.priority,a.role")]
 
 
-def bind(db, assignment_id, subject, now=None):
+def bind(db, assignment_id, subject, now=None, *, reserved_delivery=None):
     """Trusted Director binds a real tool-returned session, not a model's role label."""
     if not subject.strip():
         raise ValueError('session identity required')
     current = int(time.time()) if now is None else now
     with transaction(db):
         a = db.execute('SELECT * FROM assignments WHERE id=?', (assignment_id,)).fetchone()
-        if not a or a['state'] != 'queued' or a['deliveries'] >= MAX_DELIVERIES:
+        if reserved_delivery is None:
+            available=a and a['state']=='queued' and a['deliveries']<MAX_DELIVERIES
+        else:
+            available=a and a['state']=='reserved' and a['deliveries']==reserved_delivery and reserved_delivery<=MAX_DELIVERIES and a['lease_until']>current
+        if not available:
             raise ValueError('assignment unavailable')
         task = db.execute('SELECT * FROM tasks WHERE id=?', (a['task_id'],)).fetchone()
         if task['fence'] != a['fence'] or task['status'] not in ('running', 'review', 'integration'):
@@ -148,7 +152,7 @@ def bind(db, assignment_id, subject, now=None):
         if prior or (author and a['role'] not in IMPLEMENTERS):
             raise ValueError('independent session boundary violated')
         limit = projects()[task['project']]['max_running']
-        active = db.execute("SELECT count(*) FROM assignments WHERE state='running' AND lease_until>?", (current,)).fetchone()[0]
+        active = db.execute("SELECT count(*) FROM assignments WHERE state IN ('running','reserved') AND lease_until>? AND id!=?", (current,assignment_id)).fetchone()[0]
         if active >= limit:
             raise ValueError('active Desktop agent limit reached')
         token = uuid.uuid4().hex
@@ -160,8 +164,9 @@ def bind(db, assignment_id, subject, now=None):
         db.execute('INSERT OR IGNORE INTO session_roles VALUES (?,?,?)', (a['task_id'], subject, a['role']))
         if a['role'] in IMPLEMENTERS:
             db.execute('INSERT OR IGNORE INTO contributors VALUES (?,?)', (a['task_id'], subject))
-        db.execute("UPDATE assignments SET state='running',subject=?,token=?,lease_until=?,deliveries=deliveries+1 WHERE id=?",
-                   (subject, token, until, assignment_id))
+        delivery=a['deliveries']+1 if reserved_delivery is None else reserved_delivery
+        db.execute("UPDATE assignments SET state='running',subject=?,token=?,lease_until=?,deliveries=? WHERE id=?",
+                   (subject, token, until, delivery,assignment_id))
         return dict(db.execute('SELECT * FROM assignments WHERE id=?', (assignment_id,)).fetchone())
 
 

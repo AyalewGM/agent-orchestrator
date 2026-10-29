@@ -42,7 +42,8 @@ PersistIDs = Callable[[str, str | None], Awaitable[None] | None]
 
 class AppServerAdapter:
     def __init__(self, *, sandbox: str = "read-only", timeout_seconds: float = 120,
-                 command: tuple[str, ...] = ("codex", "app-server", "--listen", "stdio://")):
+                 command: tuple[str, ...] = ("codex", "app-server", "--listen", "stdio://"),
+                 launch_policy=None):
         if sandbox not in {"read-only", "workspace-write"}:
             raise ValueError("unsupported sandbox")
         if not 0 < timeout_seconds <= 3600:
@@ -50,6 +51,7 @@ class AppServerAdapter:
         self.sandbox = sandbox
         self.timeout_seconds = timeout_seconds
         self.command = command
+        self.launch_policy=launch_policy
 
     async def run(self, *, prompt: str, cwd: str | Path,
                   persist_ids: PersistIDs) -> AppServerResult:
@@ -61,11 +63,18 @@ class AppServerAdapter:
         session = _Session(persist_ids)
         try:
             async with asyncio.timeout(self.timeout_seconds):
+                argv=self.command
+                launch={'cwd':str(Path(cwd).resolve()),'env':_worker_environment()}
+                if self.launch_policy is not None:
+                    import shutil
+                    from .isolation import launch_spec
+                    executable=shutil.which(argv[0]) or argv[0]
+                    argv,launch=await asyncio.to_thread(launch_spec,self.launch_policy,(executable,*argv[1:]),cwd=Path(cwd).resolve())
                 session.process = await asyncio.create_subprocess_exec(
-                    *self.command, cwd=str(Path(cwd).resolve()),
+                    *argv, **launch,
                     stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.DEVNULL, start_new_session=True,
-                    limit=2 * 1024 * 1024, env=_worker_environment())
+                    limit=2 * 1024 * 1024)
                 await session.request("initialize", {
                     "clientInfo": {"name": "engineering-director", "version": "1"}})
                 await session.send({"method": "initialized", "params": {}})
@@ -220,3 +229,10 @@ class _Session:
                 except ProcessLookupError:
                     pass
                 await self.process.wait()
+
+        # Descendants can survive an already-exited parent and retain pipe handles.
+        # Every session owns a fresh process group; always clean that group.
+        try:
+            os.killpg(self.process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass

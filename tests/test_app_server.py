@@ -131,3 +131,15 @@ class EnvironmentTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(_worker_environment(),{'PATH':'/synthetic',
                 'HOME':'/synthetic-home','CODEX_HOME':'/synthetic-codex',
                 'TMPDIR':'/synthetic-tmp'})
+
+class ProtectedLaunchIntegrationTests(unittest.IsolatedAsyncioTestCase):
+    async def test_launch_policy_is_applied_and_environment_not_replaced(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as tmp:
+            script=Path(tmp)/'server.py';script.write_text(SERVER)
+            policy=object();command=(sys.executable,str(script),'completed')
+            async def persist(thread,turn): pass
+            with patch('director.isolation.launch_spec',return_value=(command,{'cwd':tmp,'env':{'PATH':os.defpath}})) as launch:
+                result=await AppServerAdapter(command=command,launch_policy=policy).run(prompt='fixture',cwd=tmp,persist_ids=persist)
+            self.assertTrue(result.succeeded)
+            self.assertIs(launch.call_args.args[0],policy)

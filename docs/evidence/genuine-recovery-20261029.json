@@ -1,0 +1,97 @@
+{
+  "status": {
+    "mode": "RUNNING",
+    "service_running": false,
+    "execution_boundary": "LOCAL_EVIDENCE_ONLY",
+    "stop_reason": "EXECUTION_BUDGET_EXHAUSTED",
+    "turns_used": 3,
+    "active": 0,
+    "tasks": [
+      {
+        "id": "mihur:ontario-9:audit",
+        "state": "BLOCKED",
+        "sha": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+        "blocker": "Agent delivery budget exhausted; inspect preserved execution failures"
+      }
+    ],
+    "event_errors": [
+      "RuntimeError",
+      "RuntimeError",
+      "RuntimeError"
+    ],
+    "release_authorized": false,
+    "merge_allowed": false
+  },
+  "original_result_sha256": "84a61cb88a431b760011b462ce38cd93fba478ab4575dba90c5f2a6b9b68dd73",
+  "original_result_preserved": true,
+  "runs": [
+    {
+      "run_id": "2a8de2783b48476aa9aae257dcd3af26",
+      "assignment_id": "2a8de2783b48476aa9aae257dcd3af26",
+      "delivery": 1,
+      "fence": "c7ad2c657c5d41b698400ee2e9be3a0e",
+      "lease_until": 1793240913,
+      "state": "consumed",
+      "thread_id": "01a1856f-1a12-7b32-b486-5d885e0062ce",
+      "turn_id": "01a1856f-1a42-7bc2-9227-99a6be968bec",
+      "cwd": "/private/tmp/mihur-event-driven-worktrees/18b0dcd4d99124cfe01af2da",
+      "result": "{\"completed\": true, \"response\": {\"head\": \"c03ee1098f1006b11dccbf268d389be80a2e4297\", \"tests_passed\": false, \"verdict\": \"blocked\", \"evidence\": {\"worktree_clean_before_and_after\": true, \"cwd\": \"/private/tmp\", \"command\": \"env -i PATH=/usr/bin:/bin DATABASE_URL=sqlite:///:memory: PYTHONPATH=/private/tmp/mihur-event-driven-worktrees/18b0dcd4d99124cfe01af2da /private/tmp/mihur-audit-venv/bin/python -m pytest -c /dev/null --noconftest -p no:cacheprovider /private/tmp/mihur-event-driven-worktrees/18b0dcd4d99124cfe01af2da/tests/unit/test_content_audit_prerequisite_scope.py /private/tmp/mihur-event-driven-worktrees/18b0dcd4d99124cfe01af2da/tests/test_content_validation.py -q\", \"exit_code\": 1, \"pass_count\": 0, \"tests_executed\": 0, \"artifact\": \"Tool execution output chunk 01f4fd contains the startup traceback.\", \"blocker\": \"Read-only sandbox prevented pytest from creating capture temporary files. FileNotFoundError: No usable temporary directory found in ['/tmp', '/var/tmp', '/usr/tmp', '/private/tmp'].\", \"provenance\": \"Local execution only; no authenticated GitHub CI result or release acceptance.\"}}}"
+    },
+    {
+      "run_id": "d5bdbe6a616044c4a07c4fd7f7883e1a",
+      "assignment_id": "2a8de2783b48476aa9aae257dcd3af26",
+      "delivery": 2,
+      "fence": "c7ad2c657c5d41b698400ee2e9be3a0e",
+      "lease_until": 1793251060,
+      "state": "consumed",
+      "thread_id": "os-confined-pytest:fd30f769-2eff-49b9-ab11-b62113f06cfd",
+      "turn_id": "process:24de9fd9-7c83-4d74-833a-6bdaf32474e1",
+      "cwd": "/private/tmp/mihur-event-driven-worktrees/f08c7c79b1b589fba56d8f61",
+      "result": "{\"completed\": false, \"error\": \"TestRunnerError\"}"
+    },
+    {
+      "run_id": "b4274524cc8a4e6ab787df3f5f4dc8ef",
+      "assignment_id": "2a8de2783b48476aa9aae257dcd3af26",
+      "delivery": 3,
+      "fence": "c7ad2c657c5d41b698400ee2e9be3a0e",
+      "lease_until": 1793251060,
+      "state": "consumed",
+      "thread_id": "os-confined-pytest:0fdb0b52-ab67-4d0d-a400-d684bcda185c",
+      "turn_id": "process:b0ba10dc-eac9-4666-8268-cb171e5d4ca6",
+      "cwd": "/private/tmp/mihur-event-driven-worktrees/3e9e6d72c3896ae6c1aca5a8",
+      "result": "{\"completed\": false, \"error\": \"TestRunnerError\"}"
+    }
+  ],
+  "states": [
+    {
+      "id": 1,
+      "task_id": "mihur:ontario-9:audit",
+      "state": "TESTING",
+      "sha": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "recorded_at": 1793240012
+    },
+    {
+      "id": 2,
+      "task_id": "mihur:ontario-9:audit",
+      "state": "BLOCKED",
+      "sha": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "recorded_at": 1793240100
+    },
+    {
+      "id": 3,
+      "task_id": "mihur:ontario-9:audit",
+      "state": "TESTING",
+      "sha": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "recorded_at": 1793250160
+    },
+    {
+      "id": 4,
+      "task_id": "mihur:ontario-9:audit",
+      "state": "BLOCKED",
+      "sha": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "recorded_at": 1793250160
+    }
+  ],
+  "implementation_attempts": 3,
+  "authenticated_approvals": []
+}

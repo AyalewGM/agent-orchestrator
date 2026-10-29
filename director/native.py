@@ -14,12 +14,18 @@ from .governance import finish, initialize, report, sha, transaction
 from .mihur_release_director import snapshot
 
 
-def git(source, *args, timeout=60):
+def git(source, *args, timeout=60, launch_policy=None):
     # Git config can otherwise run hooks, fsmonitor, and arbitrary checkout filters.
-    prefix = ['git', '-C', str(source), '-c', 'core.hooksPath=/dev/null',
+    import shutil
+    prefix = [shutil.which('git') or 'git', '-C', str(source), '-c', 'core.hooksPath=/dev/null',
               '-c', 'core.fsmonitor=false']
-    configured = subprocess.run(prefix + ['config', '--name-only', '--get-regexp', '^filter\\.'],
-                                capture_output=True, text=True, timeout=min(10,timeout))
+    def run(command,limit,check=False):
+        kwargs={}
+        if launch_policy is not None:
+            from .isolation import launch_spec
+            command,kwargs=launch_spec(launch_policy,tuple(command),cwd=Path(source).resolve())
+        return subprocess.run(command,**kwargs,check=check,capture_output=True,text=True,timeout=limit)
+    configured=run(prefix+['config','--name-only','--get-regexp','^filter\\.'],min(10,timeout))
     if configured.returncode not in (0, 1):
         raise ValueError('cannot inspect Git filter configuration')
     drivers = {key.rsplit('.', 1)[0] for key in configured.stdout.splitlines()}
@@ -27,21 +33,26 @@ def git(source, *args, timeout=60):
         for prop in ('process', 'smudge', 'clean'):
             prefix.extend(['-c', f'{driver}.{prop}='])
         prefix.extend(['-c', f'{driver}.required=false'])
-    return subprocess.run(prefix + list(args), check=True,
-                          capture_output=True, text=True, timeout=timeout).stdout.strip()
+    return run(prefix+list(args),timeout,check=True).stdout.strip()
 
 
-def worktree(source, root, head, task_id, fence, *, deadline=None):
+def worktree(source, root, head, task_id, fence, *, deadline=None, launch_policy=None):
     """Per-attempt path: a retry cannot reuse a dirty or stale agent workspace."""
     sha(head)
     def bounded_git(repo,*args):
         remaining=60 if deadline is None else min(60,deadline-time.monotonic())
         if remaining<=0:
             raise TimeoutError('worktree preparation budget exhausted')
-        return git(repo,*args,timeout=remaining)
+        return git(repo,*args,timeout=remaining,launch_policy=launch_policy)
     key = hashlib.sha256(f'{task_id}:{fence}'.encode()).hexdigest()[:24]
     path = Path(root).resolve() / key
-    path.parent.mkdir(parents=True, exist_ok=True)
+    if launch_policy is None:
+        path.parent.mkdir(parents=True,exist_ok=True)
+    else:
+        # Create all checkout/admin files as the worker, never root + recursive chown.
+        from .isolation import launch_spec
+        argv,kwargs=launch_spec(launch_policy,('/usr/bin/mkdir','-p',str(path.parent)),cwd=Path(source).resolve())
+        subprocess.run(argv,**kwargs,check=True,capture_output=True,timeout=10)
     if path.exists():
         if bounded_git(path, 'rev-parse', 'HEAD') != head or bounded_git(path, 'status', '--porcelain', '--untracked-files=all'):
             raise ValueError('existing worktree is dirty or wrong head')

@@ -180,3 +180,70 @@ establish real student availability. There is no deployment/activation capabilit
 
 References: [Codex app-server protocol](https://learn.chatgpt.com/docs/app-server),
 [GitHub signature validation](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries).
+
+## Reliability hardening (29 October 2026)
+
+Each delivery now has an immutable `run_id` and its own result, fence, lease and
+worktree. The SQLite migration retains `agent_runs_legacy`; redelivery never replaces
+old execution evidence. Completion checks both leases and delivery generation.
+Recovery quarantines uncertain current executions, while superseded runs cannot
+alter newer work. Contributor exclusions are accumulated even before a task reaches
+review. Known test-environment blockers stop the task; completed failing tests route
+to implementation within the existing implementation budget.
+
+An enrolled service now fails closed unless `isolation` is configured. Its fields
+are documented in `director/isolation.py`: distinct Linux controller/worker UIDs,
+root-owned private controller paths, worker-owned job/temp paths, and bubblewrap.
+The actual database, configuration, lock and control directory must be covered by
+`protected_paths`. Put the socket and lock inside `/var/lib/director/control`, not
+shared `/tmp`; create the private directories/files before startup. Source clones
+and worktree roots must be inside the worker job root. Git preparation runs as the
+worker, including creation of worktree administrative files. No recursive ownership
+changes or credential copying are performed.
+
+The current launcher deliberately unshares networking. A reviewed restricted
+provider gateway/namespace policy is still required before protected Codex work can
+run. Do not enable host networking as a workaround. Configure a dedicated worker
+sign-in; controller GitHub credentials and webhook secret stay in protected storage.
+An operator must provision HTTPS forwarding and subscribe GitHub `pull_request`,
+`pull_request_review`, `check_run`, `check_suite` and `workflow_run` events. Supply
+separate numeric GitHub reviewer IDs for all six gates and GitHub App permission to
+read branch protection. The available connector returns 403 for that administration
+read. These requirements are not installed or live on the current shared-user Mac.
+
+`start --local-evidence-only` explicitly permits bounded diagnostic evidence only.
+It refuses controller credential environment variables, webhook/approval mutations,
+new implementation claims, implementation execution and integration. It does not
+provide a protected controller. The fixed macOS pytest adapter additionally uses
+Seatbelt, isolated Python startup, a static test allowlist, no network, read-only
+product/runtime paths and only a disposable writable temporary directory. Credential
+read, outside-write and network denial probes must pass before product code runs.
+It is identified as `os-confined-pytest`, never as a Codex reviewer.
+
+`resume-test --task TASK --run RUN --reason TEXT` can redeliver only a preserved,
+proven unexecuted environment-blocked test, under the same SHA/fence, while test
+remaining deliveries permit it. It archives the authorization and old response;
+it never resets implementation attempts or delivery counts. Exhaustion remains a
+hard stop. Instruction repairs similarly archive the entire previous policy.
+
+### Current Mihur evidence and blocker
+
+PR515 remains at `c03ee1098f1006b11dccbf268d389be80a2e4297`. The hardened
+confined executor genuinely ran both approved test files: **22 passed**, with all
+three denial probes passing. See `evidence/confined-mihur-tests-20261029.json`.
+This was a separate diagnostic execution, not a queue delivery or approval.
+An existing independent Codex reviewer re-inspected the exact commit and accepted
+the bounded prerequisite-scope correction; this is not authenticated specialist
+release acceptance.
+
+The attempted persisted redelivery encountered the outer host sandbox and consumed
+test deliveries 2 and 3 before the known-blocker handling fix. All original results
+and implementation attempts (3) remain unchanged. See
+`evidence/genuine-recovery-20261029.json`. The task remains BLOCKED; no successful
+real queued successor transition is claimed for this run. Synthetic lifecycle tests
+cover immediate completion dispatch, rejection/correction, pause and crash recovery.
+A live end-to-end continuation requires an explicit scoped operator recovery policy
+for this exhausted task and the provisioned execution boundary. Do not reset its
+counters, mark it accepted from diagnostic tests, or create a duplicate task/PR.
+Maryland Algebra I and Grade 8 remain behind Ontario. No service or schedule is left
+running; no merge, production deployment, learner-data change or activation occurred.
