@@ -175,6 +175,9 @@ class GitHubReconciler:
             if not checks_passed or len(accepted) != len(REVIEW_GATES):
                 if current['status'] in ('integration', 'completed'):
                     invalidate_dependents(db, task_id, 'authenticated gate withdrawn')
+                    # Completed Integration is invalidated too: restored gates require
+                    # a fresh bounded delivery, never reuse its stale acceptance.
+                    db.execute("UPDATE assignments SET state='cancelled',token=NULL WHERE task_id=? AND fence=? AND role='integration' AND state='done'",(task_id,current['fence']))
                     _cancel(db, task_id, current['fence'])
                     db.execute("UPDATE tasks SET status='review',completed_at=NULL,blocker='Fresh authenticated gates incomplete' WHERE id=?", (task_id,))
                     db.execute('UPDATE desktop_tasks SET integrated_sha=NULL WHERE task_id=?', (task_id,))

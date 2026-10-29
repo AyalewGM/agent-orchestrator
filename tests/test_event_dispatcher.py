@@ -448,5 +448,17 @@ class EventTests(unittest.IsolatedAsyncioTestCase):
         collector.apply(self.db,'one',self.policy,restored,102)
         self.assertIn(row['id'],[a['id'] for a in tick(self.db)])
         self.assertEqual(self.db.execute('SELECT deliveries FROM assignments WHERE id=?',(row['id'],)).fetchone()[0],0)
+        self.db.execute("UPDATE assignments SET state='done',deliveries=1 WHERE id=?",(row['id'],))
+        self.db.execute("UPDATE tasks SET status='completed' WHERE id='one'")
+        self.db.execute('UPDATE desktop_tasks SET integrated_sha=?',(self.base,))
+        completed_withdrawal=json.loads(json.dumps(restored))
+        completed_withdrawal['reviews'][0]['state']='DISMISSED'
+        collector.apply(self.db,'one',self.policy,completed_withdrawal,103)
+        self.assertIsNone(self.db.execute('SELECT integrated_sha FROM desktop_tasks').fetchone()[0])
+        self.assertEqual(self.db.execute('SELECT state FROM assignments WHERE id=?',(row['id'],)).fetchone()[0],'cancelled')
+        restored['reviews'][0]['id']=1001
+        collector.apply(self.db,'one',self.policy,restored,104)
+        self.assertIn(row['id'],[a['id'] for a in tick(self.db)])
+        self.assertEqual(self.db.execute('SELECT deliveries FROM assignments WHERE id=?',(row['id'],)).fetchone()[0],1)
         self.db.execute("UPDATE assignments SET state='cancelled',deliveries=3 WHERE id=?",(row['id'],))
         self.assertNotIn(row['id'],[a['id'] for a in tick(self.db)])
