@@ -1,0 +1,19 @@
+{
+  "head_sha": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+  "kind": "read_only_engineering_review",
+  "specialist_acceptance": false,
+  "ids": [
+    {
+      "thread_id": "01a18564-8685-7ff1-bce6-d31d70752102",
+      "turn_id": null
+    },
+    {
+      "thread_id": "01a18564-8685-7ff1-bce6-d31d70752102",
+      "turn_id": "01a18564-86d0-70e1-879a-44c7830d96d0"
+    }
+  ],
+  "status": "completed",
+  "thread_id": "01a18564-8685-7ff1-bce6-d31d70752102",
+  "turn_id": "01a18564-86d0-70e1-879a-44c7830d96d0",
+  "final_message": "No actionable findings in HEAD `c03ee1098f1006b11dccbf268d389be80a2e4297` relative to its parent.\n\nThe changes in `tests/unit/test_content_audit_prerequisite_scope.py` preserve behavior: the dictionary rewrite retains the same fixture values, and the combined context managers retain the original nesting of `subTest` and `assertRaisesRegex`. The syntax is compatible with the declared Python \u22653.12 requirement.\n\nThe regression tests cover cross-grade acceptance, same-curriculum acceptance, matching unspecified authorities, authority/version/jurisdiction rejection in both edge directions, and exclusion of unrelated edges. These assertions align with `app/content_audit.py:107\u2013132`.\n\nLimitations: this was static inspection only; tests and lint were not run. The in-memory session does not verify actual SQL execution or persistence behavior. Missing-record and self-prerequisite rejection paths are not exercised by this unit module. No files were modified, and no network, credentials, database, or ledger was accessed.\n\nThis report is engineering evidence, not authenticated approval or curriculum specialist acceptance."
+}

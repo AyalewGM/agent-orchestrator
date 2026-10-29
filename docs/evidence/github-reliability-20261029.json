@@ -1,0 +1,88 @@
+{
+  "head": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+  "checks": [
+    {
+      "id": 123217808870,
+      "name": "CodeQL",
+      "head": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "app": 57789,
+      "conclusion": "success",
+      "url": "https://github.com/AyalewGM/ai-tutor/runs/123217808870"
+    },
+    {
+      "id": 123217724034,
+      "name": "verify",
+      "head": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "app": 15368,
+      "conclusion": "skipped",
+      "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40803749870/job/123217724034"
+    },
+    {
+      "id": 123217676893,
+      "name": "self-check",
+      "head": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "app": 15368,
+      "conclusion": "skipped",
+      "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40803749870/job/123217676893"
+    },
+    {
+      "id": 123217675868,
+      "name": "containers",
+      "head": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "app": 15368,
+      "conclusion": "success",
+      "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40803749875/job/123217675868"
+    },
+    {
+      "id": 123217675597,
+      "name": "Trivy dependencies and secrets",
+      "head": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "app": 15368,
+      "conclusion": "success",
+      "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40803749801/job/123217675597"
+    },
+    {
+      "id": 123217675479,
+      "name": "test",
+      "head": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "app": 15368,
+      "conclusion": "success",
+      "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40803749875/job/123217675479"
+    },
+    {
+      "id": 123217675281,
+      "name": "Semgrep SAST",
+      "head": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "app": 15368,
+      "conclusion": "success",
+      "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40803749801/job/123217675281"
+    },
+    {
+      "id": 123217664725,
+      "name": "Analyze (javascript-typescript)",
+      "head": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "app": 15368,
+      "conclusion": "success",
+      "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40803744774/job/123217664725"
+    },
+    {
+      "id": 123217664688,
+      "name": "Analyze (python)",
+      "head": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "app": 15368,
+      "conclusion": "success",
+      "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40803744774/job/123217664688"
+    },
+    {
+      "id": 123217664603,
+      "name": "Analyze (actions)",
+      "head": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "app": 15368,
+      "conclusion": "success",
+      "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40803744774/job/123217664603"
+    }
+  ],
+  "pr6_reviews": [],
+  "branch_protection": "403 Resource not accessible by integration",
+  "source": "Authenticated GitHub connector GET on 2026-10-29; evidence only, no approval mutation"
+}

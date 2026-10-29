@@ -139,23 +139,15 @@ identity: use actual native tool-returned sessions and independently verified ev
 Authenticated GitHub specialist identities/CI provenance and a protected ledger service
 remain necessary before unattended production governance can be trusted.
 
-## Recommended automations
+## Event-driven operation replaces scheduled execution
 
-Use a **thread automation** attached to the existing Director chat, initially every
-hour during pilot hours, rather than creating a new chat per tick. Suggested prompt:
-
-> Resume the persistent Mihur Director ledger using the Mihur Delivery skill. Refresh
-> exact-head GitHub evidence, run Desktop tick, and process only enrolled dependency-ready
-> tasks within three active assignments and existing retry budgets. Stop at missing
-> evidence or authorization. Keep quiet while state is unchanged or non-actionable;
-> notify on meaningful progress, completion, failure or required owner action. Never
-> merge, deploy, activate students, modify learner data, reset attempts or infer approvals.
-
-This is a recommendation; no new recurring automation is installed by this change.
-The existing daily read-only Actions snapshot remains useful remote evidence, not
-persistent queue storage. Native automations need an available configured Desktop host
-and inherit its permissions; verify one manual run first. Provider/host budgets and
-process isolation are still external limits, not enforced by assignment-count caps.
+Use `director.dispatcher` and docs/EVENT_DISPATCHER.md as the primary execution
+path. The hourly Director heartbeat was deleted at the owner's request. Do not
+create an hourly job, cron wakeup or schedule-driven engineering loop. The older
+Desktop bind/submit interface remains a compatibility/manual inspection path;
+stored assignments alone are not running agents. Native app-server notifications,
+signed GitHub webhook reconciliation and operator events drive the supervisor.
+Existing read-only daily Actions reports are historical monitoring, not agent dispatch.
 
 Keep student activation separate. After all required independent gates, real synthetic
 PostgreSQL/browser/AT evidence, signed package verification and persisted before/after

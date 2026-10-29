@@ -1,0 +1,770 @@
+{
+  "repository": "AyalewGM/ai-tutor",
+  "main_sha": "288ff05f98a0feb1d02e101a9de74ac637bb0067",
+  "generated_at": "2026-10-29T01:52:47.991Z",
+  "release_authorized": false,
+  "learner_available": "NOT_VERIFIED",
+  "verified_independent_approvals": [],
+  "dependencies": [
+    {
+      "pr": 514,
+      "sha": "9e3cdf4cfe736442d5b78531735436e6cab5d430",
+      "url": "https://github.com/AyalewGM/ai-tutor/pull/514",
+      "checks": [
+        {
+          "id": 123186329915,
+          "name": "verify",
+          "sha": "9e3cdf4cfe736442d5b78531735436e6cab5d430",
+          "conclusion": "skipped",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40794123596/job/123186329915"
+        },
+        {
+          "id": 123186285018,
+          "name": "self-check",
+          "sha": "9e3cdf4cfe736442d5b78531735436e6cab5d430",
+          "conclusion": "skipped",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40794123596/job/123186285018"
+        },
+        {
+          "id": 123186283962,
+          "name": "test",
+          "sha": "9e3cdf4cfe736442d5b78531735436e6cab5d430",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40794123600/job/123186283962"
+        },
+        {
+          "id": 123186283671,
+          "name": "containers",
+          "sha": "9e3cdf4cfe736442d5b78531735436e6cab5d430",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40794123600/job/123186283671"
+        }
+      ],
+      "review_observations": [
+        {
+          "id": 5683222359,
+          "sha": "1d10e6a94f7f4a22399a49c721680fb2908f96ec",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/514#pullrequestreview-5683222359",
+          "scope_excerpt": "## Security & Privacy \u2014 exact-SHA staged frontend review (2026-10-28)\n**Verdict: PENDING for integration/release; bounded fail-closed source contract recognized.** Six files add frontend `PublishedLearningRecovery`, state parser, Workspace coupling, and synthetic/browser tests; current CI SUCCESS, mathematical-evidence workflow SKIPPED; exact-head AppSec Baseline not returned. Reviewer-executed te"
+        },
+        {
+          "id": 5685156623,
+          "sha": "65e1505345f844a76e7d14d6ce594221a2e16472",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/514#pullrequestreview-5685156623",
+          "scope_excerpt": "## Frontend integration rereview \u2014 PENDING (exact head `65e1505345f844a76e7d14d6ce594221a2e16472`)\n\nThe reconciled #514 branch is mergeable and up-to-date with current #501 base `34bbf8dd0395cfcce7fa390ad5c7fab2199b60d4`, with #505 restricted exact-rational input combined. Exact-head [CI #40713002913](https://github.com/AyalewGM/ai-tutor/actions/runs/40713002913) now **SUCCESS** (both Python and c"
+        },
+        {
+          "id": 5685601882,
+          "sha": "872ac302212af12a64bc78f41dc06224353c1c12",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/514#pullrequestreview-5685601882",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 CHANGES_REQUIRED (recovery continuity)\n\n**Exact reviewed head:** `872ac302212af12a64bc78f41dc06224353c1c12`  \n**Scope:** learner-facing pedagogy in PR #514 only. This is not mathematical proof, standards/source fidelity, Security, Engineering readiness, or release approval. The bounded Pedagogy acceptance already recorded on #501 remains separate and is not reo"
+        },
+        {
+          "id": 5687634508,
+          "sha": "b6590556bdac7ea9b3b99a5a744464c5becf8698",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/514#pullrequestreview-5687634508",
+          "scope_excerpt": "## Frontend Integration \u2014 exact-head rereview, bounded implementation accepted / release PENDING\n**SHA:** `b6590556bdac7ea9b3b99a5a744464c5becf8698`, stacked on #501 `e1a82bb28fe65128ae0980f5a0ed0313f00f92c8`. **Evidence:** [#514 CI 40721855264](https://github.com/AyalewGM/ai-tutor/actions/runs/40721855264) PASS (Python + browser/container); [#501 CI 40719466085](https://github.com/AyalewGM/ai-tut"
+        },
+        {
+          "id": 5687969103,
+          "sha": "b6590556bdac7ea9b3b99a5a744464c5becf8698",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/514#pullrequestreview-5687969103",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 CHANGES_REQUIRED (hard-reload continuity)\n\n**Exact reviewed head:** `b6590556bdac7ea9b3b99a5a744464c5becf8698`  \n**Compared Pedagogy head:** `872ac302212af12a64bc78f41dc06224353c1c12` \u2014 `CHANGES_REQUIRED_RECOVERY_CONTINUITY`.  \n**Scope:** learner-facing pedagogy only. This is not Math, Standards, Security, Engineering readiness, Muse QA, or release approval.\n\n#"
+        },
+        {
+          "id": 5691591467,
+          "sha": "9e3cdf4cfe736442d5b78531735436e6cab5d430",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/514#pullrequestreview-5691591467",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 BOUNDED ACCEPT (hard-reload discovery source contract)\n\n**Exact reviewed head:** `9e3cdf4cfe736442d5b78531735436e6cab5d430`  \n**Compared Pedagogy head:** `b6590556bdac7ea9b3b99a5a744464c5becf8698` \u2014 `CHANGES_REQUIRED_REAL_WORKSPACE_RECOVERY_DISCOVERY`.  \n**Backend dependency inspected separately:** #501 exact head `261a53a12268c763afd1cf05e5f1a709e6f32347`, whi"
+        }
+      ],
+      "gates": {
+        "trusted_scoring": "BOUNDED_HISTORICAL_EVIDENCE_RECHECK_REQUIRED",
+        "frontend": "SOURCE_AND_CI_EVIDENCE_ONLY",
+        "math": "NO_FULL_RELEASE_ACCEPTANCE",
+        "pedagogy": "BOUNDED_COMMENTS_NOT_FULL_RELEASE",
+        "standards": "UNVERIFIED",
+        "security": "BOUNDED_COMMENTS_NOT_FULL_RELEASE",
+        "accessibility": "REAL_AT_ACCEPTANCE_UNVERIFIED",
+        "staging": "DEPLOYED_SYNTHETIC_JOURNEY_UNVERIFIED",
+        "deployment_readiness": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "pr": 511,
+      "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+      "url": "https://github.com/AyalewGM/ai-tutor/pull/511",
+      "checks": [
+        {
+          "id": 122344934104,
+          "name": "CodeQL",
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "conclusion": "success",
+          "app_id": 57789,
+          "url": "https://github.com/AyalewGM/ai-tutor/runs/122344934104"
+        },
+        {
+          "id": 122344601949,
+          "name": "Analyze (python)",
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548241404/job/122344601949"
+        },
+        {
+          "id": 122344601789,
+          "name": "Analyze (actions)",
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548241404/job/122344601789"
+        },
+        {
+          "id": 122344601291,
+          "name": "Analyze (javascript-typescript)",
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548241404/job/122344601291"
+        },
+        {
+          "id": 122344504599,
+          "name": "Trivy dependencies and secrets",
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548215645/job/122344504599"
+        },
+        {
+          "id": 122344504407,
+          "name": "self-check",
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "conclusion": "skipped",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548215265/job/122344504407"
+        },
+        {
+          "id": 122344504181,
+          "name": "Semgrep SAST",
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548215645/job/122344504181"
+        },
+        {
+          "id": 122344503682,
+          "name": "verify",
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "conclusion": "skipped",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548215265/job/122344503682"
+        },
+        {
+          "id": 122344501959,
+          "name": "test",
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548215256/job/122344501959"
+        },
+        {
+          "id": 122344501626,
+          "name": "containers",
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40548215256/job/122344501626"
+        }
+      ],
+      "review_observations": [
+        {
+          "id": 5661838854,
+          "sha": "9ceab7d739c044f66553380d104eaa87d93fa8f9",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/511#pullrequestreview-5661838854",
+          "scope_excerpt": "## Security & Privacy re-review \u2014 PENDING (2026-10-26)\n**Exact SHA:** `9ceab7d739c044f66553380d104eaa87d93fa8f9`; base `main@675baa9da77b3fb4c56a8ede61c8d50b61b36f37`. **Scope:** three files: inactive `atomic_rational_attempt.py`, its unit tests, and additive `test_persisted_rational_postgres.py` tests. **Source inspection only:** no independently executed security tests in this review.\n\n**Positiv"
+        },
+        {
+          "id": 5661969895,
+          "sha": "9ceab7d739c044f66553380d104eaa87d93fa8f9",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/511#pullrequestreview-5661969895",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 PENDING (inactive atomic recorder)\n\n**Exact PR head:** `9ceab7d739c044f66553380d104eaa87d93fa8f9`  \n**Base inspected:** `main@675baa9da77b3fb4c56a8ede61c8d50b61b36f37`  \n**Scope:** attempt persistence and independent/mastery isolation only. The recorder is inactive and not learner-routed.\n\n### Evidence verified\n\nThe replacement branch avoids #506's divergent s"
+        },
+        {
+          "id": 5672572316,
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/511#pullrequestreview-5672572316",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 SCOPED ACCEPT\n\n**Exact PR head:** `1a266ad430c0375688d0963b69cfb5af6c8a4384`  \n**Compared Math-reviewed head:** `9ceab7d739c044f66553380d104eaa87d93fa8f9`  \n**Current main inspected:** `288ff05f98a0feb1d02e101a9de74ac637bb0067`  \n**Scope:** inactive PostgreSQL Attempt persistence, serialization, replay, rollback, and independent/mastery isolation only.\n\n### Ex"
+        },
+        {
+          "id": 5682752020,
+          "sha": "1a266ad430c0375688d0963b69cfb5af6c8a4384",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/511#pullrequestreview-5682752020",
+          "scope_excerpt": "## Security & Privacy \u2014 exact-SHA source verdict (2026-10-28)\n**ACCEPT_BOUNDED \u2014 inactive PostgreSQL attempt recorder only.** Reviewed four-file delta, new separate-connection concurrency regression, existing exact-SHA Math findings and CI/AppSec evidence. CI SUCCESS (reported 27,161 passed, 9 xfailed; opt-in PostgreSQL test executed) and AppSec SUCCESS. Reviewer-executed tests here: NOT_EXECUTED."
+        }
+      ],
+      "gates": {
+        "trusted_scoring": "BOUNDED_HISTORICAL_EVIDENCE_RECHECK_REQUIRED",
+        "frontend": "SOURCE_AND_CI_EVIDENCE_ONLY",
+        "math": "NO_FULL_RELEASE_ACCEPTANCE",
+        "pedagogy": "BOUNDED_COMMENTS_NOT_FULL_RELEASE",
+        "standards": "UNVERIFIED",
+        "security": "BOUNDED_COMMENTS_NOT_FULL_RELEASE",
+        "accessibility": "REAL_AT_ACCEPTANCE_UNVERIFIED",
+        "staging": "DEPLOYED_SYNTHETIC_JOURNEY_UNVERIFIED",
+        "deployment_readiness": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "pr": 505,
+      "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+      "url": "https://github.com/AyalewGM/ai-tutor/pull/505",
+      "checks": [
+        {
+          "id": 122647132006,
+          "name": "CodeQL",
+          "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "conclusion": "success",
+          "app_id": 57789,
+          "url": "https://github.com/AyalewGM/ai-tutor/runs/122647132006"
+        },
+        {
+          "id": 122647059252,
+          "name": "verify",
+          "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "conclusion": "skipped",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637269287/job/122647059252"
+        },
+        {
+          "id": 122647011094,
+          "name": "self-check",
+          "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "conclusion": "skipped",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637269287/job/122647011094"
+        },
+        {
+          "id": 122647010429,
+          "name": "test",
+          "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637269274/job/122647010429"
+        },
+        {
+          "id": 122647010220,
+          "name": "containers",
+          "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637269274/job/122647010220"
+        },
+        {
+          "id": 122647010101,
+          "name": "Semgrep SAST",
+          "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637269276/job/122647010101"
+        },
+        {
+          "id": 122647009799,
+          "name": "Trivy dependencies and secrets",
+          "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637269276/job/122647009799"
+        },
+        {
+          "id": 122646996292,
+          "name": "Analyze (python)",
+          "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637263749/job/122646996292"
+        },
+        {
+          "id": 122646996291,
+          "name": "Analyze (actions)",
+          "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637263749/job/122646996291"
+        },
+        {
+          "id": 122646995988,
+          "name": "Analyze (javascript-typescript)",
+          "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40637263749/job/122646995988"
+        }
+      ],
+      "review_observations": [
+        {
+          "id": 5669051329,
+          "sha": "6e580ee08f8083ade80ae969c1010ce47875f53d",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/505#pullrequestreview-5669051329",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 BOUNDED ACCEPT (exact-rational keypad affordance correction)\n\n**Exact head:** `6e580ee08f8083ade80ae969c1010ce47875f53d`  \n**Compared with prior Pedagogy CHANGES_REQUIRED:** `3990340c871a9e4b4f775eb000ac30b454bac712`  \n**Reviewed changed source blob:** `frontend/src/components/ExactRationalEntry.tsx@11057cf14111d7e2c08efbf0487375a712e02528`.\n\n**Decision:** `BOU"
+        },
+        {
+          "id": 5669908826,
+          "sha": "6e580ee08f8083ade80ae969c1010ce47875f53d",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/505#pullrequestreview-5669908826",
+          "scope_excerpt": "## Security & Privacy exact-SHA review \u2014 2026-10-27\n**Verdict: ACCEPT_BOUNDED (frontend-only no-client-credit boundary); PENDING browser/AT and full release.**\n**Exact head:** `6e580ee08f8083ade80ae969c1010ce47875f53d`. Reviewed three-file patch including ExactRationalEntry, Workspace integration and SSR/token tests. GitHub-reported exact-head CI and AppSec SUCCESS. No independently executed brows"
+        },
+        {
+          "id": 5678826668,
+          "sha": "ccfc9f09573ab04460c7a09fb4788db67ad2a7f6",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/505#pullrequestreview-5678826668",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 BOUNDED ACCEPT_BROWSER_AFFORDANCE_ONLY\n\n**Exact PR head:** `ccfc9f09573ab04460c7a09fb4788db67ad2a7f6`  \n**Compared Pedagogy-reviewed predecessor:** `6e580ee08f8083ade80ae969c1010ce47875f53d`  \n**Changed scope:** one real-browser regression file; the previously accepted `ExactRationalEntry` component source is unchanged.\n\nI read the current head and existing Ped"
+        }
+      ],
+      "gates": {
+        "trusted_scoring": "BOUNDED_HISTORICAL_EVIDENCE_RECHECK_REQUIRED",
+        "frontend": "SOURCE_AND_CI_EVIDENCE_ONLY",
+        "math": "NO_FULL_RELEASE_ACCEPTANCE",
+        "pedagogy": "BOUNDED_COMMENTS_NOT_FULL_RELEASE",
+        "standards": "UNVERIFIED",
+        "security": "BOUNDED_COMMENTS_NOT_FULL_RELEASE",
+        "accessibility": "REAL_AT_ACCEPTANCE_UNVERIFIED",
+        "staging": "DEPLOYED_SYNTHETIC_JOURNEY_UNVERIFIED",
+        "deployment_readiness": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "pr": 501,
+      "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+      "url": "https://github.com/AyalewGM/ai-tutor/pull/501",
+      "checks": [
+        {
+          "id": 123182211749,
+          "name": "CodeQL",
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "conclusion": "failure",
+          "app_id": 57789,
+          "url": "https://github.com/AyalewGM/ai-tutor/runs/123182211749"
+        },
+        {
+          "id": 123182070570,
+          "name": "verify",
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "conclusion": "skipped",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841135/job/123182070570"
+        },
+        {
+          "id": 123182013417,
+          "name": "Semgrep SAST",
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841108/job/123182013417"
+        },
+        {
+          "id": 123182013161,
+          "name": "Trivy dependencies and secrets",
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841108/job/123182013161"
+        },
+        {
+          "id": 123182006888,
+          "name": "self-check",
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "conclusion": "skipped",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841135/job/123182006888"
+        },
+        {
+          "id": 123182005548,
+          "name": "containers",
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841112/job/123182005548"
+        },
+        {
+          "id": 123182005204,
+          "name": "test",
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841112/job/123182005204"
+        },
+        {
+          "id": 123182005131,
+          "name": "validate",
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792841110/job/123182005131"
+        },
+        {
+          "id": 123181991656,
+          "name": "Analyze (javascript-typescript)",
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792835566/job/123181991656"
+        },
+        {
+          "id": 123181991590,
+          "name": "Analyze (actions)",
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792835566/job/123181991590"
+        },
+        {
+          "id": 123181991248,
+          "name": "Analyze (python)",
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "conclusion": "success",
+          "app_id": 15368,
+          "url": "https://github.com/AyalewGM/ai-tutor/actions/runs/40792835566/job/123181991248"
+        }
+      ],
+      "review_observations": [
+        {
+          "id": 5647173790,
+          "sha": "16fe5d90fbe42a528f5775271f3dbacf5f395531",
+          "state": "COMMENTED",
+          "actor": "github-advanced-security[bot]",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5647173790",
+          "scope_excerpt": ""
+        },
+        {
+          "id": 5647631148,
+          "sha": "0168ddb514567c1f62ca09fc0e519d965e14cdcf",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5647631148",
+          "scope_excerpt": "## Independent Standards Mapping \u2014 CHANGES_REQUIRED\n\n**Exact reviewed PR head:** `0168ddb514567c1f62ca09fc0e519d965e14cdcf`  \n**Current main:** `2406ecd853a2e593519e2fb273cfd00e8b5cee69`\n\n### Preserved source decision\n\nThe controlling independent Standards decision for the reused #489 content remains:\n\n- `MTH1W.C1.5` \u2014 `PARTIAL_NON_EXHAUSTIVE / PROVISIONAL_NOT_ACCEPTED`;\n- `MTH1W.C1.4` \u2014 `NOT_MAPP"
+        },
+        {
+          "id": 5647862114,
+          "sha": "0fd3b56732f57dd68323f3f36088f6a525892770",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5647862114",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 PENDING / NOT_REVIEWED\n\n**Exact PR head:** `0fd3b56732f57dd68323f3f36088f6a525892770`  \n**Current main:** `2406ecd853a2e593519e2fb273cfd00e8b5cee69`\n\nThe prior bounded mathematical acceptance of the reused #489 generator remains pinned to `4b2c878d94c5992a1ce657ff4541f3554ab01e14`. This review does not reopen that source-level verdict.\n\n### Exact-head blocker\n"
+        },
+        {
+          "id": 5647958881,
+          "sha": "0fd3b56732f57dd68323f3f36088f6a525892770",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5647958881",
+          "scope_excerpt": "## Independent Standards Mapping \u2014 NOT_REVIEWED_AUTHORSHIP_CONFLICT\n\n**Exact PR head:** `0fd3b56732f57dd68323f3f36088f6a525892770`  \n**Current main:** `2406ecd853a2e593519e2fb273cfd00e8b5cee69`\n\nPR #501 advanced one commit from the Standards-reviewed SHA `0168ddb514567c1f62ca09fc0e519d965e14cdcf`. The changed commit is the standards-contract correction requested by the prior `CHANGES_REQUIRED` ver"
+        },
+        {
+          "id": 5648233616,
+          "sha": "0122aac943012161c2621a9970412e4d66eda8a7",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5648233616",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 NOT_REVIEWED_AUTHORSHIP_CONFLICT\n\n**Exact PR head:** `0122aac943012161c2621a9970412e4d66eda8a7`  \n**Current main:** `2406ecd853a2e593519e2fb273cfd00e8b5cee69`\n\nThe prior runtime-digest blocker is corrected. The sole delta from Math-reviewed head `0fd3b56732f57dd68323f3f36088f6a525892770` replaces the stale manifest digest with the independently reconstructed e"
+        },
+        {
+          "id": 5658697437,
+          "sha": "14c5e09fdfc9419d55ce8349559b0d894ca90909",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5658697437",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 CHANGES_REQUIRED (evidence isolation)\n\n**Exact PR head:** `14c5e09fdfc9419d55ce8349559b0d894ca90909`  \n**Current main:** `252caf0d7cba9f24ead2c96b6f0b0e97f9238310`\n\nI independently fetched exact-head blobs `a387228f3fbc515c8f3f44b94a5353f253171095` (`pedagogy_journey_probe.py`) and `0dd2ae03586ae6809d4b669845c88d67062629af` (focused tests). Prior #489 generato"
+        },
+        {
+          "id": 5661161871,
+          "sha": "14c5e09fdfc9419d55ce8349559b0d894ca90909",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5661161871",
+          "scope_excerpt": "## Security & Privacy Review \u2014 CHANGES_REQUIRED for staging-release gate (2026-10-26)\n**Exact head:** `14c5e09fdfc9419d55ce8349559b0d894ca90909`. **Scope:** workflow `.github/workflows/content-publisher.yml`, signed-manifest policy and signing utility, 19-file changed inventory, existing Math/Pedagogy exact-head blocker reviews. **Evidence class:** source inspection, not independently executed sta"
+        },
+        {
+          "id": 5661312982,
+          "sha": "5d7310934661d4ab956349ceaeb3311936701f0b",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5661312982",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 CHANGES_REQUIRED (journey evidence still insufficient)\n\n**Exact PR head:** `5d7310934661d4ab956349ceaeb3311936701f0b`  \n**Compared predecessor:** `14c5e09fdfc9419d55ce8349559b0d894ca90909`  \n**Scope:** Pedagogy only \u2014 independent-evidence integrity and the unchanged offline journey contract. Mathematical correctness, source fidelity, Security, Architecture, Eng"
+        },
+        {
+          "id": 5661627161,
+          "sha": "97dc12ee8e1a303cdf16a408c5d5c583a46d959e",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5661627161",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 PENDING (authoring evidence corrected; exact-head route contract incomplete)\n\n**Exact PR head:** `97dc12ee8e1a303cdf16a408c5d5c583a46d959e`  \n**Compared Math-reviewed predecessor:** `5d7310934661d4ab956349ceaeb3311936701f0b`  \n**Current main:** `675baa9da77b3fb4c56a8ede61c8d50b61b36f37`\n\n### Source evidence verified\n\nThe prior Math blockers in the offline auth"
+        },
+        {
+          "id": 5661688839,
+          "sha": "97dc12ee8e1a303cdf16a408c5d5c583a46d959e",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5661688839",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 CHANGES_REQUIRED (author-side trace corrected; learner route still absent)\n\n**Exact PR head:** `97dc12ee8e1a303cdf16a408c5d5c583a46d959e`  \n**Compared Pedagogy-reviewed head:** `5d7310934661d4ab956349ceaeb3311936701f0b`  \n**Scope:** Pedagogy only. Mathematical correctness, source fidelity, Security, Architecture, Engineering release, and CI remain separate.\n\nI "
+        },
+        {
+          "id": 5661966649,
+          "sha": "e81f23b58b0ae6e812926a8ff5d7a10f1889aee0",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5661966649",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 PENDING after new assistance-isolation delta\n\n**Exact PR head:** `e81f23b58b0ae6e812926a8ff5d7a10f1889aee0`  \n**Compared accepted-correction predecessor:** `4e8cad04c0f7bd3abed90f3d01ddccd7e4c70174`  \n**Scope:** mathematical/independent-evidence isolation only. Standards, Pedagogy, Security, QA, and release engineering remain separate.\n\n### Source finding\n\nThe"
+        },
+        {
+          "id": 5662312120,
+          "sha": "a60812b333bdfa8bddf830a3dcb29fe8d23662f3",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5662312120",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 PENDING (digest fixed; endpoint isolation tests absent)\n\n**Exact PR head:** `a60812b333bdfa8bddf830a3dcb29fe8d23662f3`  \n**Compared Math-reviewed head:** `e81f23b58b0ae6e812926a8ff5d7a10f1889aee0`  \n**Scope:** independent/mastery evidence isolation only.\n\n### Resolved\n\nThe sole delta repins the signed package runtime digest to the runtime containing the publis"
+        },
+        {
+          "id": 5662313973,
+          "sha": "a60812b333bdfa8bddf830a3dcb29fe8d23662f3",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5662313973",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 CHANGES_REQUIRED (assistance isolation improved; learner journey still absent)\n\n**Exact PR head:** `a60812b333bdfa8bddf830a3dcb29fe8d23662f3`  \n**Compared Pedagogy-reviewed head:** `97dc12ee8e1a303cdf16a408c5d5c583a46d959e`  \n**Scope:** Pedagogy only. Math, source fidelity, Security, Engineering, CI, and release authority remain separate.\n\nI read the current ex"
+        },
+        {
+          "id": 5669904138,
+          "sha": "5077b41b06eefd1c6e85ef9c391d77a6720e00fc",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5669904138",
+          "scope_excerpt": "## Security & Privacy exact-SHA re-review \u2014 2026-10-27\n**Verdict: PENDING for release; ACCEPT_BOUNDED for HTTP assistance-denial regression only.**\n**SHA:** `5077b41b06eefd1c6e85ef9c391d77a6720e00fc`. Inspected exact PR patch and author tests for published typed-step and photo-scan denial; GitHub-reported exact-head CI, AppSec Baseline, staging-configuration checks SUCCESS. Mathematical-evidence w"
+        },
+        {
+          "id": 5669941181,
+          "sha": "5077b41b06eefd1c6e85ef9c391d77a6720e00fc",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5669941181",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 SCOPED ACCEPT\n\n**Exact PR head:** `5077b41b06eefd1c6e85ef9c391d77a6720e00fc`  \n**Compared Math-reviewed predecessor:** `a60812b333bdfa8bddf830a3dcb29fe8d23662f3`  \n**Current main inspected:** `288ff05f98a0feb1d02e101a9de74ac637bb0067`  \n**Scope:** published typed-step/photo-step assistance isolation only. Standards, Pedagogy, Security, QA, and release remain i"
+        },
+        {
+          "id": 5674873953,
+          "sha": "5c62ae860bbff40258d85ef683c9829418fb09be",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5674873953",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 CHANGES_REQUIRED (bounded no-reward correction accepted)\n\n**Exact PR head:** `5c62ae860bbff40258d85ef683c9829418fb09be`  \n**Compared predecessor:** `5077b41b06eefd1c6e85ef9c391d77a6720e00fc`  \n**Scope:** pedagogical evidence/reward separation only; independent Math, source-fidelity and release gates are separate.\n\n**New bounded positive finding:** The 5-commit "
+        },
+        {
+          "id": 5674905538,
+          "sha": "5c62ae860bbff40258d85ef683c9829418fb09be",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5674905538",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 PENDING\n\n**Exact PR head:** `5c62ae860bbff40258d85ef683c9829418fb09be`  \n**Compared accepted Math head:** `5077b41b06eefd1c6e85ef9c391d77a6720e00fc`  \n**Current main inspected:** `288ff05f98a0feb1d02e101a9de74ac637bb0067`  \n**Scope:** published-response reward/evidence isolation only.\n\n### Source evidence\n\nThe five-commit delta changes three files:\n\n- `app/ada"
+        },
+        {
+          "id": 5676390775,
+          "sha": "8d64b5a36f61e1a78ca0eb6eca40a527030791bc",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5676390775",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 CHANGES_REQUIRED\n\n**Exact PR head:** `8d64b5a36f61e1a78ca0eb6eca40a527030791bc`  \n**Compared Math-reviewed predecessor:** `5c62ae860bbff40258d85ef683c9829418fb09be`  \n**Current main inspected:** `288ff05f98a0feb1d02e101a9de74ac637bb0067`  \n**Scope:** authenticated published diagnosis/reasoning/guided-retest mathematics and independent/mastery isolation. Pedago"
+        },
+        {
+          "id": 5676422611,
+          "sha": "8d64b5a36f61e1a78ca0eb6eca40a527030791bc",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5676422611",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 CHANGES_REQUIRED\n\n**Exact PR head:** `8d64b5a36f61e1a78ca0eb6eca40a527030791bc`  \n**Compared Pedagogy-reviewed predecessor:** `5c62ae860bbff40258d85ef683c9829418fb09be`  \n**Scope:** Pedagogy only\u2014task structure, learner diagnosis/repair, independent transfer, accessibility, and assessment leakage. Mathematical correctness, source fidelity, Security, QA, CI, and"
+        },
+        {
+          "id": 5677530784,
+          "sha": "11c98b26f9858da2dd922ab65f99aea4a48cdfe9",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5677530784",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 SCOPED ACCEPT\n\n**Exact PR head:** `11c98b26f9858da2dd922ab65f99aea4a48cdfe9`  \n**Compared Math-reviewed head:** `8d64b5a36f61e1a78ca0eb6eca40a527030791bc`  \n**Current main inspected:** `288ff05f98a0feb1d02e101a9de74ac637bb0067`  \n**Scope:** authenticated exact-math repair, bounded guided recovery, alternate-family unhinted transfer, and no-credit isolation. Pe"
+        },
+        {
+          "id": 5677563116,
+          "sha": "11c98b26f9858da2dd922ab65f99aea4a48cdfe9",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5677563116",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 CHANGES_REQUIRED\n\n**Exact PR head:** `11c98b26f9858da2dd922ab65f99aea4a48cdfe9`  \n**Compared Pedagogy-reviewed predecessor:** `8d64b5a36f61e1a78ca0eb6eca40a527030791bc`  \n**Scope:** Pedagogy only\u2014misconception-specific repair, guided recovery, unseen transfer, accessibility, and assessment leakage. Mathematical correctness, Standards, Security, QA, CI, release,"
+        },
+        {
+          "id": 5678806553,
+          "sha": "0e5d8172d7eea8158cc1030c98a5e1f206106c72",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5678806553",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 CHANGES_REQUIRED\n\n**Exact PR head:** `0e5d8172d7eea8158cc1030c98a5e1f206106c72`  \n**Compared accepted Math head:** `11c98b26f9858da2dd922ab65f99aea4a48cdfe9`  \n**Current main inspected:** `288ff05f98a0feb1d02e101a9de74ac637bb0067`  \n**Scope:** the new server-derived misconception-specific corrective checkpoint and preservation of the previously accepted exact "
+        },
+        {
+          "id": 5678824981,
+          "sha": "0e5d8172d7eea8158cc1030c98a5e1f206106c72",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5678824981",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 CHANGES_REQUIRED\n\n**Exact PR head:** `0e5d8172d7eea8158cc1030c98a5e1f206106c72`  \n**Compared Pedagogy-reviewed predecessor:** `11c98b26f9858da2dd922ab65f99aea4a48cdfe9`  \n**Scope:** Pedagogy only\u2014misconception-specific repair and assessment leakage. Mathematical correctness, CI, Standards, Security, QA, release, and activation remain separate.\n\nI read the curre"
+        },
+        {
+          "id": 5682289706,
+          "sha": "16296d4e7749aff48787934a84e3a465d2676f89",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5682289706",
+          "scope_excerpt": "## Independent Mihur Pedagogy \u2014 CHANGES_REQUIRED (bounded repair-leakage and retry correction accepted)\n\n**Exact PR head:** `16296d4e7749aff48787934a84e3a465d2676f89`  \n**Compared previously reviewed head:** `0e5d8172d7eea8158cc1030c98a5e1f206106c72`  \n**Scope:** only the material Pedagogy deltas in the 7 commits after that verdict; Math, Standards, Security, Muse QA and release remain independent"
+        },
+        {
+          "id": 5682684164,
+          "sha": "496b8f3b4d373ab13bfa5a0239cdfbd77baacf86",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5682684164",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 SCOPED ACCEPT (separate mastery-verification task, feedback-only)\n\n**Exact PR head:** `496b8f3b4d373ab13bfa5a0239cdfbd77baacf86`  \n**Compared with:** prior Math-scoped ACCEPT at `11c98b26f9858da2dd922ab65f99aea4a48cdfe9`, and mastery-specific predecessor `16296d4e7749aff48787934a84e3a465d2676f89`.  \n**Main inspected:** `288ff05f98a0feb1d02e101a9de74ac637bb0067"
+        },
+        {
+          "id": 5682713650,
+          "sha": "496b8f3b4d373ab13bfa5a0239cdfbd77baacf86",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5682713650",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 BOUNDED ACCEPT (separate, feedback-only mastery verification)\n\n**Exact reviewed head:** `496b8f3b4d373ab13bfa5a0239cdfbd77baacf86`  \n**Previous substantive Pedagogy head:** `16296d4e7749aff48787934a84e3a465d2676f89` (CHANGES_REQUIRED for a missing separate verification task).  \n**Scope:** only the four-commit mastery-checkpoint delta. This is not mathematical p"
+        },
+        {
+          "id": 5682752406,
+          "sha": "496b8f3b4d373ab13bfa5a0239cdfbd77baacf86",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5682752406",
+          "scope_excerpt": "## Security & Privacy \u2014 exact-SHA release boundary (2026-10-28)\n**PENDING for staging/student activation; bounded source progress recognized.** Inspected 21-file changed scope, new published reasoning and feedback-only separate mastery checkpoint, current CI/AppSec/staging-configuration SUCCESS, latest Math/Pedagogy scoped verdicts. Reviewer-executed tests: NOT_EXECUTED. The newly reported checkpo"
+        },
+        {
+          "id": 5682905874,
+          "sha": "496b8f3b4d373ab13bfa5a0239cdfbd77baacf86",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5682905874",
+          "scope_excerpt": "## Mihur Frontend Learning Flow Integration \u2014 PENDING (not full PR acceptance)\n**Exact reviewed head:** `496b8f3b4d373ab13bfa5a0239cdfbd77baacf86`  \n**Scope:** frontend learner accessibility, Workspace route, mode isolation and browser integration; not mathematics, trusted scoring, signature policy or release authorization.\n\n**Preserved positive evidence:** Exact-head CI [40685620154](https://gith"
+        },
+        {
+          "id": 5683221875,
+          "sha": "b61353e42e6d936d2d7134866b5aa13a740f6992",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5683221875",
+          "scope_excerpt": "## Security & Privacy \u2014 exact-SHA re-review (2026-10-28)\n**Verdict: PENDING (revocation fix source accepted in scope; release not approved).** Changed inventory now includes `app/identity.py`, `tests/test_published_revocation.py`, and repinned signed runtime inventory. Source inspection shows ownership gate updated to reject inactive learners with non-disclosing 404, with synthetic tests for inact"
+        },
+        {
+          "id": 5684641496,
+          "sha": "da909785644dce5ce9b82f46f3512a664b5d0dfb",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5684641496",
+          "scope_excerpt": "## Security & Privacy exact-SHA verification \u2014 PENDING / CHANGES_REQUIRED for merge (2026-10-28)\n**Head:** `da909785644dce5ce9b82f46f3512a664b5d0dfb`. Current GitHub run conclusions: **CI FAILURE**, AppSec Baseline SUCCESS, Staging configuration SUCCESS, independent mathematical workflow SKIPPED. Reviewer-executed tests: NOT_EXECUTED. Existing accepted source boundaries are not revoked solely by n"
+        },
+        {
+          "id": 5684826765,
+          "sha": "34bbf8dd0395cfcce7fa390ad5c7fab2199b60d4",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5684826765",
+          "scope_excerpt": "## Security & Privacy delta recheck \u2014 2026-10-28\n**Exact SHA:** `34bbf8dd0395cfcce7fa390ad5c7fab2199b60d4`.\n**Verdict: ACCEPT_BOUNDED** for fail-closed revocation/digest correction at inactive source-and-CI scope; **PENDING** for staging/learner activation.\n\nThe prior `da909785` CI failure was diagnosed as an incomplete runtime digest covering 12 instead of 14 controlled files. The current package"
+        },
+        {
+          "id": 5685425225,
+          "sha": "cf06f265f6452115982428b28f903a09d09e507f",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5685425225",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 CHANGES_REQUIRED (recovery identity)\n\n**Exact PR head:** `cf06f265f6452115982428b28f903a09d09e507f`  \n**Compared Math-accepted head:** `496b8f3b4d373ab13bfa5a0239cdfbd77baacf86`  \n**Current main inspected:** `288ff05f98a0feb1d02e101a9de74ac637bb0067`  \n**Scope:** the new read-only `published-recovery` assessment reconstruction only. Previously accepted seeded "
+        },
+        {
+          "id": 5687573908,
+          "sha": "e1a82bb28fe65128ae0980f5a0ed0313f00f92c8",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5687573908",
+          "scope_excerpt": "Independent Mathematical Quality Review \u2014 exact SHA `e1a82bb28fe65128ae0980f5a0ed0313f00f92c8`\n\n**Scoped verdict: ACCEPT \u2014 recovery-identity correction only (source inspection). Full mathematical/runtime release acceptance remains PENDING.**\n\nCompared prior CHANGES_REQUIRED SHA `cf06f265f6452115982428b28f903a09d09e507f` to this exact head: three commits ahead, changed `app/adaptive_response_api.py"
+        },
+        {
+          "id": 5687916043,
+          "sha": "af45f670bfd93a93b49e008615d1fe79f9029e68",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5687916043",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 SCOPED ACCEPT (recovery discovery only)\n\n**Exact PR head:** `af45f670bfd93a93b49e008615d1fe79f9029e68`  \n**Compared Math-reviewed head:** `e1a82bb28fe65128ae0980f5a0ed0313f00f92c8`  \n**Current main inspected:** `288ff05f98a0feb1d02e101a9de74ac637bb0067`\n\nThis verdict is limited to the new server-side discovery route `GET /sessions/{session_id}/published-recove"
+        },
+        {
+          "id": 5687969624,
+          "sha": "af45f670bfd93a93b49e008615d1fe79f9029e68",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5687969624",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 CHANGES_REQUIRED (recovery discovery continuity)\n\n**Exact reviewed head:** `af45f670bfd93a93b49e008615d1fe79f9029e68`  \n**Prior Pedagogy scope preserved:** the feedback-only diagnosis \u2192 targeted repair \u2192 guided retry \u2192 unhinted transfer \u2192 separate verification contract accepted at earlier exact heads is not reopened.  \n**Scope:** only the new server-owned `publ"
+        },
+        {
+          "id": 5691371917,
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5691371917",
+          "scope_excerpt": "## Independent Pedagogical Quality \u2014 BOUNDED ACCEPT (terminal-journey discovery correction)\n\n**Exact reviewed head:** `261a53a12268c763afd1cf05e5f1a709e6f32347`\n**Pedagogy predecessor:** `af45f670bfd93a93b49e008615d1fe79f9029e68` \u2014 CHANGES_REQUIRED_UNFINISHED_JOURNEY_DISCOVERY.\n**Scope:** ONLY the five-commit recovery-discovery delta, not independent Math, standards, Security, accessibility QA or "
+        },
+        {
+          "id": 5691512514,
+          "sha": "261a53a12268c763afd1cf05e5f1a709e6f32347",
+          "state": "COMMENTED",
+          "actor": "AyalewGM",
+          "url": "https://github.com/AyalewGM/ai-tutor/pull/501#pullrequestreview-5691512514",
+          "scope_excerpt": "## Independent Mathematical Quality \u2014 CHANGES_REQUIRED (terminal recovery discovery)\n\n**Exact PR head:** `261a53a12268c763afd1cf05e5f1a709e6f32347`  \n**Compared Math-accepted head:** `af45f670bfd93a93b49e008615d1fe79f9029e68`  \n**Current main inspected:** `288ff05f98a0feb1d02e101a9de74ac637bb0067`\n\n**Scope:** only the five-commit recovery-discovery delta. Previously accepted generators, exact rati"
+        }
+      ],
+      "gates": {
+        "trusted_scoring": "BOUNDED_HISTORICAL_EVIDENCE_RECHECK_REQUIRED",
+        "frontend": "SOURCE_AND_CI_EVIDENCE_ONLY",
+        "math": "CHANGES_REQUIRED_AT_CURRENT_HEAD",
+        "pedagogy": "BOUNDED_COMMENTS_NOT_FULL_RELEASE",
+        "standards": "UNVERIFIED",
+        "security": "BOUNDED_COMMENTS_NOT_FULL_RELEASE",
+        "accessibility": "REAL_AT_ACCEPTANCE_UNVERIFIED",
+        "staging": "DEPLOYED_SYNTHETIC_JOURNEY_UNVERIFIED",
+        "deployment_readiness": "NOT_AUTHORIZED"
+      }
+    }
+  ]
+}

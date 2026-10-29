@@ -1,0 +1,31 @@
+# Prepared template only. Do not enable before the documented preflight/gateway review.
+[Unit]
+Description=Bounded event-driven Engineering Director
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/director
+EnvironmentFile=/etc/director/controller.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/usr/bin/python3 -m director.dispatcher --db /var/lib/director/director.sqlite --socket /var/lib/director/control/director.sock start --config /etc/director/dispatcher.json
+Restart=no
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/director /srv/director-workers
+PrivateTmp=yes
+MemoryMax=2G
+CPUQuota=200%
+TasksMax=96
+OOMPolicy=stop
+KillMode=control-group
+KillSignal=SIGINT
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target

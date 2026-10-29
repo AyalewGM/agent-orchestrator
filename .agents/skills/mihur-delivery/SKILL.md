@@ -30,37 +30,44 @@ exact deployment SHA, route, before/after per-skill depth and no guided mastery 
 Return missing evidence and blockers. Owner release authorization remains separate.
 
 
-## Active Codex Desktop execution
+## Event-driven continuous execution
 
-Use the persistent bridge, not manually rotated chats. Read docs/CODEX_DESKTOP.md.
-The trusted Director owns SQLite and binds actual tool-returned session IDs. Agent
-results are untrusted evidence until the Director verifies the exact Git commit,
-changed scope and command/CI provenance; agent role strings are not authentication.
-Do not give author sessions the ledger, binding tokens or governance mutation tools.
+Read docs/EVENT_DISPATCHER.md. The primary runtime is `director.dispatcher`, using
+the same tasks, dependencies and Desktop assignment ledger. No hourly automation,
+cron wakeup or manual chat rotation. The hourly heartbeat was deleted by owner request.
 
-1. Enroll an existing pending or review task with `director.desktop enroll`; this is
-   explicit task opt-in. Do not bypass missing prerequisites or clone the pilot queue.
-2. Run `python3 -m director.desktop --db director.sqlite tick`. For each queued
-   assignment, read the matching `.codex/agents/ROLE.toml`, prepare its SHA-pinned
-   isolated worktree and spawn a native subagent. Pass only the bounded assignment,
-   raw source/artifacts and that role's instructions. Review sessions start without
-   author conversation history, suggested verdicts, or other reviewers' conclusions.
-3. Bind the assignment to the actual spawned session with `bind`. Keep the returned
-   token in the Director context. Never bind one session to two roles for a task.
-   Maximum three active assignments; execute review lanes in waves within this cap.
-4. Wait for the native session. Independently verify the returned artifact SHA and
-   evidence. For test_runner, verify executed synthetic test logs or authenticated
-   exact-head GitHub checks against the operator-owned required policy. Do not
-   substitute a model's assertion of green CI. Write the verified result to JSON,
-   then `submit` using the Director-held token. Submission returns the next offers.
-5. Continue automatically through testing, independent reviews, correction and
-   integration. Rejections cancel sibling deliveries and requeue the same milestone.
-   Persist all handoffs; a restarted Director runs tick/status to resume. Expired
-   deliveries receive fresh tokens and at most three deliveries per role/attempt.
-   Total implementation attempts are also capped at three. Stop at exhaustion or a
-   real missing prerequisite, and report the blocker without resetting budgets.
+Use start/stop/pause/resume/status. A persistent signed-event inbox and real Codex
+app-server notifications trigger immediate next-state reconciliation. Configure a
+bounded execution budget, at most three active workers and finite missed-event
+reconciliation. Workers may not recursively spawn agents. Completed/failed results
+and completion events commit together; replay is idempotent. Ambiguous crash starts
+are quarantined for operator inspection instead of blindly rerunning side effects.
 
-An integration accept establishes local engineering readiness only. It does not grant
-merge, deployment, learner-data mutation, production access or student activation.
-No automated sensitive-action path is supplied. The offline demo uses synthetic actor
-fixtures and must never be ingested as real Mihur specialist acceptance.
+Use add-family to create independent Ontario content lanes under the existing audit
+and aggregate-content milestones; do not bypass shared dependencies or advance
+Maryland/Grade 8 before Ontario. Register only existing managed tasks in an
+operator-owned event configuration. Do not reset task or delivery budgets.
+
+Only the protected GitHub REST collector can populate authenticated gates. Webhooks
+must pass HMAC-SHA256 and trigger fresh canonical head/check/review reads. Reviewers
+are operator-configured numeric GitHub IDs, separate from all PR contributors. Agent
+review prose is evidence only. Current-head APPROVED states, trusted check App IDs,
+all independent lanes, local evidence and independent Integration are separate gates.
+A head change or withdrawn gate revokes readiness and blocks dependent work.
+
+Controller secrets and ledger write authority must be protected from workers. Worktrees
+and local role names are not authentication. The app-server adapter strips controller,
+GitHub, deployment and provider secrets from worker environment, enforces profile
+feature restrictions and denies approval requests; it does not establish an OS/user
+isolation boundary. Provision protected controller and disposable worker isolation
+before claiming unattended production approval integrity.
+
+Persist real native execution separately from synthetic fixtures. PR515 is the existing
+real pilot; reuse its branch and PR, do not duplicate it. Its genuine correction loop
+ended at c03ee1098f1006b11dccbf268d389be80a2e4297 with exact-head CI and bounded
+engineering acceptance. The existing audit task has used all three implementation
+attempts and remains blocked on broader audit/authenticated gates; do not reset it.
+
+RELEASE_READY is local engineering readiness, never deployment or student activation.
+No merge, production deploy, learner-data mutation, question activation or credential
+acquisition without explicit scoped owner authorization and separate trusted service.

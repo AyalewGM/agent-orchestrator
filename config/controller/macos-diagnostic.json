@@ -1,0 +1,4 @@
+{
+  "limits": {"max_active": 3, "budget_seconds": 300, "max_turns": 2, "reconcile_interval": 120, "max_reconciliations": 0},
+  "tasks": {}
+}

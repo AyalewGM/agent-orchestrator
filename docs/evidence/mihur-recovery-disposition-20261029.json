@@ -1,0 +1,58 @@
+{
+  "manifest_sha256": "7245314807f2c5d81a035e2144e3157d867a3c733723f7ee5113e7a8d6ed15a7",
+  "parent_task": "mihur:ontario-9:audit",
+  "head": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+  "fence": "c7ad2c657c5d41b698400ee2e9be3a0e",
+  "original_implementation_attempts": 3,
+  "runs": [
+    {
+      "run_id": "2a8de2783b48476aa9aae257dcd3af26",
+      "delivery": 1,
+      "result_sha256": "84a61cb88a431b760011b462ce38cd93fba478ab4575dba90c5f2a6b9b68dd73",
+      "classification": "infrastructure",
+      "tests_executed": 0
+    },
+    {
+      "run_id": "d5bdbe6a616044c4a07c4fd7f7883e1a",
+      "delivery": 2,
+      "result_sha256": "4943d0ed6948c2ad6d0deac379ac7af307d557499b39f5cc167d0c9e7948063b",
+      "classification": "unknown",
+      "tests_executed": null
+    },
+    {
+      "run_id": "b4274524cc8a4e6ab787df3f5f4dc8ef",
+      "delivery": 3,
+      "result_sha256": "4943d0ed6948c2ad6d0deac379ac7af307d557499b39f5cc167d0c9e7948063b",
+      "classification": "unknown",
+      "tests_executed": null
+    }
+  ],
+  "classification": "unknown",
+  "status": "HOLD_UNKNOWN_FAILURE_STAGE",
+  "authorized": false,
+  "executable": false,
+  "scope": "Exact-SHA confined pytest and separate independent Codex source review only; zero product changes",
+  "proposed_limits": {
+    "test_executions": 1,
+    "review_turns": 1,
+    "max_active": 1,
+    "budget_seconds": 300,
+    "automatic_retries": 0
+  },
+  "prohibited": [
+    "reset counters",
+    "clear original blocker",
+    "create duplicate product task or PR",
+    "populate approvals",
+    "merge",
+    "deploy",
+    "learner-data changes",
+    "student activation"
+  ],
+  "requirements": [
+    "resolve unknown failure stages or explicitly retain uncertainty in operator recovery disposition",
+    "explicit scoped human authorization referencing this manifest digest",
+    "verified confinement preflight before execution",
+    "no implicit recovery dispatch"
+  ]
+}

@@ -107,8 +107,7 @@ student availability from draft question counts, CI or mock browser tests.
 ## Codex Desktop Director and correction-loop demonstration
 
 [Desktop runbook](docs/CODEX_DESKTOP.md) documents the supported active-session
-workflow, exact pilot-enabling commands, evidence contracts and recommended thread
-automation. Backend, Frontend, Content, Integration, DevOps and test-runner profiles
+workflow, exact pilot-enabling commands, evidence contracts and event-driven execution. Backend, Frontend, Content, Integration, DevOps and test-runner profiles
 extend the existing Director and independent reviewers.
 
 ```bash
@@ -127,3 +126,24 @@ actual session/artifact/CI provenance and submits results; failures route back w
 manual chat rotation. Integration is a separate gate before dependent tasks can start.
 This remains a trusted local bridge, not a cryptographic identity gateway or a
 standalone background model service. No production activation path is provided.
+
+
+## Approval integrity and genuine pilot evidence
+
+The [independent security finding](docs/APPROVAL_BOUNDARY.md) prevents claiming
+that shared-host Desktop agents cannot forge local approvals. Status explicitly
+reports `approval_integrity=UNVERIFIED_SHARED_HOST` and an empty
+`verified_independent_approvals` list. Real native session/test/PR observations are
+append-only records in the same SQLite ledger; they do not become authenticated
+release acceptance. The owner reviewed and merged PR #5; protected controller deployment and required
+GitHub identity/policy still need independent verification.
+
+## Event-driven execution (primary)
+
+Use [the event dispatcher runbook](docs/EVENT_DISPATCHER.md). The hourly heartbeat
+has been deleted; do not schedule engineering ticks. `director.dispatcher` uses actual
+bounded Codex app-server turns, signed GitHub notifications and the existing SQLite
+queue/assignments. It provides start, stop, pause, resume and status, parallel family
+lanes, durable event replay, authenticated review reconciliation and bounded recovery.
+Agent-generated review text remains evidence only. Protected controller hosting,
+GitHub webhook installation and independent numeric reviewer identities remain required.

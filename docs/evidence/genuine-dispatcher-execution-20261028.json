@@ -1,0 +1,45 @@
+{
+  "mode": "RUNNING",
+  "turns_used": 1,
+  "active": 0,
+  "tasks": [
+    {
+      "id": "mihur:ontario-9:audit",
+      "state": "BLOCKED",
+      "sha": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "blocker": "Native test/review rejection; correction required"
+    }
+  ],
+  "event_errors": [
+    "URLError",
+    "URLError"
+  ],
+  "release_authorized": false,
+  "merge_allowed": false,
+  "runs": [
+    {
+      "assignment_id": "2a8de2783b48476aa9aae257dcd3af26",
+      "state": "consumed",
+      "thread_id": "01a1856f-1a12-7b32-b486-5d885e0062ce",
+      "turn_id": "01a1856f-1a42-7bc2-9227-99a6be968bec",
+      "cwd": "/private/tmp/mihur-event-driven-worktrees/18b0dcd4d99124cfe01af2da",
+      "result": "{\"completed\": true, \"response\": {\"head\": \"c03ee1098f1006b11dccbf268d389be80a2e4297\", \"tests_passed\": false, \"verdict\": \"blocked\", \"evidence\": {\"worktree_clean_before_and_after\": true, \"cwd\": \"/private/tmp\", \"command\": \"env -i PATH=/usr/bin:/bin DATABASE_URL=sqlite:///:memory: PYTHONPATH=/private/tmp/mihur-event-driven-worktrees/18b0dcd4d99124cfe01af2da /private/tmp/mihur-audit-venv/bin/python -m pytest -c /dev/null --noconftest -p no:cacheprovider /private/tmp/mihur-event-driven-worktrees/18b0dcd4d99124cfe01af2da/tests/unit/test_content_audit_prerequisite_scope.py /private/tmp/mihur-event-driven-worktrees/18b0dcd4d99124cfe01af2da/tests/test_content_validation.py -q\", \"exit_code\": 1, \"pass_count\": 0, \"tests_executed\": 0, \"artifact\": \"Tool execution output chunk 01f4fd contains the startup traceback.\", \"blocker\": \"Read-only sandbox prevented pytest from creating capture temporary files. FileNotFoundError: No usable temporary directory found in ['/tmp', '/var/tmp', '/usr/tmp', '/private/tmp'].\", \"provenance\": \"Local execution only; no authenticated GitHub CI result or release acceptance.\"}}}"
+    }
+  ],
+  "history": [
+    {
+      "id": 1,
+      "task_id": "mihur:ontario-9:audit",
+      "state": "TESTING",
+      "sha": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "recorded_at": 1793240012
+    },
+    {
+      "id": 2,
+      "task_id": "mihur:ontario-9:audit",
+      "state": "BLOCKED",
+      "sha": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+      "recorded_at": 1793240100
+    }
+  ]
+}
