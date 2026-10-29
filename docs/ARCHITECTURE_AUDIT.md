@@ -105,8 +105,11 @@ reusing a historical acceptance.
 
 Re-audited the existing feature head `bf8f5f6a490f6a8b2e19592f5a947a10b89c8f91`,
 AGENTS.md, eight existing profiles, skill, registry, Python modules, all three Actions
-workflows, open orchestration PR #4 and current open Mihur PR inventory. #3/#4 remain
-unmerged and must be reused. This follow-up updates #4 rather than adding another PR.
+workflows, orchestration PR #4 and current open Mihur PR inventory. A final raw
+GitHub read showed #3 merged into main at `aa019300b27f3b81bae944de9f6041cdae8dbf94`,
+and #4 merged into its former feature base after #3 landed. The Desktop follow-up
+therefore targets main and preserves #4's original commit, which is absent from main.
+No orchestration implementation was duplicated or rewritten.
 
 The concrete missing capability was persistent *agent handoff*, not task scheduling.
 `director.desktop` now derives durable role assignments from the existing task state,

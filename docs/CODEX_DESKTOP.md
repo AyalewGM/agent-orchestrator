@@ -4,7 +4,8 @@
 
 The existing Python/SQLite task queue, curriculum dependencies, three-attempt limit,
 lease recovery, exact-SHA release collector, isolated worktree helper and independent
-review gates remain the authority. PR #4 is stacked on #3; this follow-up updates #4.
+review gates remain the authority. This follow-up targets current main and preserves
+the existing integration commits.
 No competing queue, Agents API service or recursive `codex exec` process is added.
 
 The new `director.desktop` bridge persists role assignments *for an existing leased
@@ -57,8 +58,10 @@ Do not copy demo verdicts into the pilot ledger.
 
 ## Enable the Mihur pilot
 
-1. Review and land #3, then #4 after retargeting to main. The current feature branch
-   can be used for an isolated local demonstration before merge. Keep the existing
+1. Review and land the Desktop follow-up PR against main. #3 has landed; #4 was
+   merged into its former feature base, so the follow-up preserves those changes
+   that are still absent from main. The feature branch can be used for an isolated
+   local demonstration before merge. Keep the existing
    `director.sqlite` as the single pilot ledger; do not replace it with the demo DB.
 2. Verify the current Mihur main SHA, open #488 and #501/#505/#511/#514, review source
    guidance, and refresh the release snapshot through the connected GitHub tools.
