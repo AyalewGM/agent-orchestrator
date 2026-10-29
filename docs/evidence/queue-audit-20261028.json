@@ -1,0 +1,269 @@
+{
+  "execution": {
+    "task_id": "mihur:ontario-9:audit",
+    "sha": "288ff05f98a0feb1d02e101a9de74ac637bb0067",
+    "worktree": "/private/tmp/mihur-integration-worktrees/55d02f6da1956a97af288617",
+    "status": "review"
+  },
+  "release_authorized": false,
+  "learner_available": "NOT_VERIFIED",
+  "tasks": [
+    {
+      "id": "mihur:ontario-9:audit",
+      "status": "review",
+      "attempts": 1,
+      "head_sha": "288ff05f98a0feb1d02e101a9de74ac637bb0067",
+      "blocker": "Independent specialist review required",
+      "missing_reviews": [
+        "engineering",
+        "mathematics",
+        "pedagogy",
+        "standards",
+        "security",
+        "qa"
+      ],
+      "ci": {
+        "passed": false,
+        "source": null
+      },
+      "evidence_digest": "0b5bb52b6677db61345a64aff83c1a1c693c1ea439822b309a28b1dd70deeca7"
+    },
+    {
+      "id": "mihur:ontario-9:content",
+      "status": "pending",
+      "attempts": 0,
+      "head_sha": null,
+      "blocker": "Awaiting exact-SHA audit and independent review",
+      "missing_reviews": [
+        "engineering",
+        "mathematics",
+        "pedagogy",
+        "standards",
+        "security",
+        "qa"
+      ],
+      "ci": {
+        "passed": false,
+        "source": null
+      },
+      "evidence_digest": null
+    },
+    {
+      "id": "mihur:ontario-9:integration",
+      "status": "pending",
+      "attempts": 0,
+      "head_sha": null,
+      "blocker": "Awaiting exact-SHA audit and independent review",
+      "missing_reviews": [
+        "engineering",
+        "mathematics",
+        "pedagogy",
+        "standards",
+        "security",
+        "qa"
+      ],
+      "ci": {
+        "passed": false,
+        "source": null
+      },
+      "evidence_digest": null
+    },
+    {
+      "id": "mihur:ontario-9:verification",
+      "status": "pending",
+      "attempts": 0,
+      "head_sha": null,
+      "blocker": "Awaiting exact-SHA audit and independent review",
+      "missing_reviews": [
+        "engineering",
+        "mathematics",
+        "pedagogy",
+        "standards",
+        "security",
+        "qa"
+      ],
+      "ci": {
+        "passed": false,
+        "source": null
+      },
+      "evidence_digest": null
+    },
+    {
+      "id": "mihur:maryland-algebra-1:audit",
+      "status": "pending",
+      "attempts": 0,
+      "head_sha": null,
+      "blocker": "Awaiting exact-SHA audit and independent review",
+      "missing_reviews": [
+        "engineering",
+        "mathematics",
+        "pedagogy",
+        "standards",
+        "security",
+        "qa"
+      ],
+      "ci": {
+        "passed": false,
+        "source": null
+      },
+      "evidence_digest": null
+    },
+    {
+      "id": "mihur:maryland-algebra-1:content",
+      "status": "pending",
+      "attempts": 0,
+      "head_sha": null,
+      "blocker": "Awaiting exact-SHA audit and independent review",
+      "missing_reviews": [
+        "engineering",
+        "mathematics",
+        "pedagogy",
+        "standards",
+        "security",
+        "qa"
+      ],
+      "ci": {
+        "passed": false,
+        "source": null
+      },
+      "evidence_digest": null
+    },
+    {
+      "id": "mihur:maryland-algebra-1:integration",
+      "status": "pending",
+      "attempts": 0,
+      "head_sha": null,
+      "blocker": "Awaiting exact-SHA audit and independent review",
+      "missing_reviews": [
+        "engineering",
+        "mathematics",
+        "pedagogy",
+        "standards",
+        "security",
+        "qa"
+      ],
+      "ci": {
+        "passed": false,
+        "source": null
+      },
+      "evidence_digest": null
+    },
+    {
+      "id": "mihur:maryland-algebra-1:verification",
+      "status": "pending",
+      "attempts": 0,
+      "head_sha": null,
+      "blocker": "Awaiting exact-SHA audit and independent review",
+      "missing_reviews": [
+        "engineering",
+        "mathematics",
+        "pedagogy",
+        "standards",
+        "security",
+        "qa"
+      ],
+      "ci": {
+        "passed": false,
+        "source": null
+      },
+      "evidence_digest": null
+    },
+    {
+      "id": "mihur:grade-8:audit",
+      "status": "pending",
+      "attempts": 0,
+      "head_sha": null,
+      "blocker": "Awaiting exact-SHA audit and independent review",
+      "missing_reviews": [
+        "engineering",
+        "mathematics",
+        "pedagogy",
+        "standards",
+        "security",
+        "qa"
+      ],
+      "ci": {
+        "passed": false,
+        "source": null
+      },
+      "evidence_digest": null
+    },
+    {
+      "id": "mihur:grade-8:content",
+      "status": "pending",
+      "attempts": 0,
+      "head_sha": null,
+      "blocker": "Awaiting exact-SHA audit and independent review",
+      "missing_reviews": [
+        "engineering",
+        "mathematics",
+        "pedagogy",
+        "standards",
+        "security",
+        "qa"
+      ],
+      "ci": {
+        "passed": false,
+        "source": null
+      },
+      "evidence_digest": null
+    },
+    {
+      "id": "mihur:grade-8:integration",
+      "status": "pending",
+      "attempts": 0,
+      "head_sha": null,
+      "blocker": "Awaiting exact-SHA audit and independent review",
+      "missing_reviews": [
+        "engineering",
+        "mathematics",
+        "pedagogy",
+        "standards",
+        "security",
+        "qa"
+      ],
+      "ci": {
+        "passed": false,
+        "source": null
+      },
+      "evidence_digest": null
+    },
+    {
+      "id": "mihur:grade-8:verification",
+      "status": "pending",
+      "attempts": 0,
+      "head_sha": null,
+      "blocker": "Awaiting exact-SHA audit and independent review",
+      "missing_reviews": [
+        "engineering",
+        "mathematics",
+        "pedagogy",
+        "standards",
+        "security",
+        "qa"
+      ],
+      "ci": {
+        "passed": false,
+        "source": null
+      },
+      "evidence_digest": null
+    }
+  ],
+  "source_inventory": [
+    ".github/agents/mihur-bug-hunter.agent.md",
+    ".github/agents/mihur-math-auditor.agent.md",
+    ".github/agents/mihur-muse-auditor.agent.md",
+    ".github/agents/mihur-pedagogy-auditor.agent.md",
+    ".github/agents/mihur-security-auditor.agent.md",
+    ".github/agents/mihur-standards-auditor.agent.md",
+    ".github/workflows/acquire-ospi-2026.yml",
+    ".github/workflows/ci.yml",
+    ".github/workflows/independent-math-evidence.yml",
+    ".github/workflows/security.yml",
+    ".github/workflows/staging-config.yml",
+    ".github/workflows/staging-images.yml",
+    ".github/workflows/synthetic-skill-depth.yml",
+    "app/canonical_problem_families.py",
+    "scripts/audit_persisted_question_depth.py"
+  ]
+}

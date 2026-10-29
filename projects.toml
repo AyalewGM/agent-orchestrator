@@ -1,0 +1,17 @@
+# Operator-reviewed registry. Disabled projects are not dispatchable.
+[projects.mihur]
+repository = "AyalewGM/ai-tutor"
+enabled = true
+objective = "Ontario Grade 9 MTH1W question-bank integration and verified student availability, then Maryland Algebra I, then Ontario and Maryland Grade 8. Reconcile #488, #501, #505, #511, #514; reuse canonical families and independent approval boundaries."
+required_checks = ["test", "containers", "Semgrep SAST", "Trivy dependencies and secrets", "CodeQL"]
+max_attempts = 3
+max_running = 3
+lease_seconds = 600
+
+[projects.orbytics]
+enabled = false
+objective = "Onboard exact backend/frontend repository identities, policy and acceptance evidence before dispatch."
+
+[projects.gasha]
+enabled = false
+objective = "Onboard exact backend/frontend repository identities, policy and acceptance evidence before dispatch."
