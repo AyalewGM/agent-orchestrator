@@ -1,0 +1,13 @@
+{
+  "limits": {"max_active": 3, "budget_seconds": 900, "max_turns": 20, "reconcile_interval": 120, "max_reconciliations": 3},
+  "isolation": {
+    "controller_uid": 0, "worker_uid": 2001, "worker_gid": 2001,
+    "protected_paths": ["/var/lib/director", "/etc/director", "/opt/director"],
+    "worktree": "/srv/director-workers/job",
+    "temp": "/srv/director-workers/temp",
+    "worker_home": "/srv/director-workers/temp/home",
+    "worker_codex_home": "/srv/director-workers/temp/home/.codex",
+    "sandbox_executable": "/usr/bin/bwrap"
+  },
+  "tasks": {}
+}

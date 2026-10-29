@@ -56,6 +56,18 @@ def enroll(db, task_id, base, implementer='backend', *, required_checks=None):
 def _offer(db, task, role):
     db.execute('INSERT OR IGNORE INTO assignments(id,task_id,fence,role) VALUES (?,?,?,?)',
                (uuid.uuid4().hex, task['id'], task['fence'], role))
+    if role == 'integration' and task['status']=='integration':
+        # A fresh canonical gate reconciliation may restore this same-head state.
+        # Never rearm while an old execution/result is still in flight, nor reset its budget.
+        has_runs=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='agent_runs'").fetchone()
+        pending_run=has_runs and db.execute("SELECT 1 FROM agent_runs r JOIN assignments a ON a.id=r.assignment_id WHERE a.task_id=? AND a.fence=? AND a.role=? AND r.state IN ('starting','running','returned','failed','uncertain')",(task['id'],task['fence'],role)).fetchone()
+        if not pending_run:
+            db.execute("UPDATE assignments SET state='queued',subject=NULL,token=NULL,lease_until=NULL WHERE task_id=? AND fence=? AND role=? AND state='cancelled' AND deliveries<?",(task['id'],task['fence'],role,MAX_DELIVERIES))
+            exhausted=db.execute("SELECT 1 FROM assignments WHERE task_id=? AND fence=? AND role=? AND state='cancelled' AND deliveries>=?",(task['id'],task['fence'],role,MAX_DELIVERIES)).fetchone()
+            if exhausted:
+                db.execute("UPDATE tasks SET status='blocked',blocker='Integration delivery budget exhausted after gate restoration' WHERE id=?",(task['id'],))
+
+
 
 
 def _cancel(db, task_id, fence):

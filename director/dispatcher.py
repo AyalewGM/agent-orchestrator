@@ -327,7 +327,8 @@ class Dispatcher:
                 self.db.execute("UPDATE agent_runs SET state=?,result=? WHERE run_id=?", (state,json.dumps(value), run_id))
                 self.emit('agent:' + run_id, 'agent_complete', {'run_id':run_id})
         finally:
-            self.active.pop(aid, None)
+            if self.active.get(aid) is asyncio.current_task():
+                self.active.pop(aid, None)
             if self.db.execute('SELECT state FROM agent_runs WHERE run_id=?', (run_id,)).fetchone()[0] in ('returned', 'failed'):
                 self.emit('agent:' + run_id, 'agent_complete', {'run_id':run_id})
 
@@ -340,7 +341,7 @@ class Dispatcher:
         occupied={r['id'] for r in self.db.execute("SELECT id FROM assignments WHERE state='running' AND lease_until>?",(int(time.time()),))} | set(self.active)
         slots=self.max_active-len(occupied)
         for offer in offers:
-            if offer['task_id'] not in plans or slots<=0 or turns >= self.max_turns:
+            if offer['id'] in self.active or offer['task_id'] not in plans or slots<=0 or turns >= self.max_turns:
                 continue
             if self.local_evidence_only and offer['role'] not in {'test_runner',*desktop.REVIEWERS.values()}:
                 continue

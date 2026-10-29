@@ -1,0 +1,26 @@
+{
+  "thread_id": "os-confined-pytest:3e824b11-59e8-4470-aee8-a87bf0c1bfa0",
+  "turn_id": "process:de4a310e-62ba-45d5-b746-af00710d0ba6",
+  "status": "completed",
+  "report": {
+    "head_sha": "c03ee1098f1006b11dccbf268d389be80a2e4297",
+    "counts": {
+      "passed": 22
+    },
+    "executor": "os-confined-pytest",
+    "exit_code": 0,
+    "denial_probes": {
+      "credential_read": true,
+      "outside_write": true,
+      "network": true
+    },
+    "approved_tests": [
+      "tests/unit/test_content_audit_prerequisite_scope.py",
+      "tests/test_content_validation.py"
+    ],
+    "output": "Cannot read termcap database;\nusing dumb terminal settings.\n============================= test session starts ==============================\nplatform darwin -- Python 3.14.0, pytest-8.4.2, pluggy-1.7.0\nrootdir: /private/tmp/mihur-real-pilot/f1c3016314aeb88bf686d13f\nconfigfile: pyproject.toml\ncollected 22 items\n\ntests/unit/test_content_audit_prerequisite_scope.py ........             [ 36%]\ntests/test_content_validation.py ..............                          [100%]\n\n============================== 22 passed in 0.37s ==============================\n",
+    "authenticated_approval": false
+  },
+  "queue_delivery": false,
+  "authenticated_approval": false
+}

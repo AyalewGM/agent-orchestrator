@@ -407,3 +407,46 @@ class EventTests(unittest.IsolatedAsyncioTestCase):
         observation=json.loads(self.db.execute("SELECT payload FROM evidence_events WHERE kind='operator_instruction_repair'").fetchone()[0])
         self.assertEqual(observation['prior_policy']['objective'],original['objective'])
         self.assertEqual(self.db.execute('SELECT attempts FROM tasks').fetchone()[0],3)
+
+    async def test_expired_delivery_does_not_replace_live_worker(self):
+        import time
+        self.reviewable()
+        started=asyncio.Event();release=asyncio.Event();calls=[]
+        class Adapter:
+            async def run(inner,*,prompt,cwd,persist_ids):
+                calls.append(cwd)
+                await persist_ids('live-worker',None)
+                started.set()
+                await release.wait()
+                return AppServerResult('live-worker','turn','completed',json.dumps({'head':self.base,'tests_passed':True}))
+        d=Dispatcher(self.db,adapter_factory=lambda role:Adapter(),max_reconciliations=0)
+        await d.dispatch();await started.wait()
+        aid=next(iter(d.active));original=d.active[aid]
+        self.db.execute('UPDATE assignments SET lease_until=? WHERE id=?',(int(time.time())-1,aid))
+        await d.dispatch()
+        self.assertEqual(len(calls),1)
+        self.assertIs(d.active[aid],original)
+        original.cancel();await asyncio.gather(original,return_exceptions=True)
+        self.assertFalse(d.active)
+
+    async def test_same_head_gate_restoration_rearms_integration_with_budget(self):
+        from director.desktop import tick
+        self.reviewable()
+        collector=GitHubReconciler()
+        from director.desktop import _offer
+        task=self.db.execute("SELECT * FROM tasks WHERE id='one'").fetchone()
+        for role in ['test_runner',*REVIEWERS.values()]:_offer(self.db,task,role)
+        self.db.execute("UPDATE assignments SET state='done'")
+        collector.apply(self.db,'one',self.policy,self.snapshot(),100)
+        tick(self.db)
+        row=self.db.execute("SELECT * FROM assignments WHERE role='integration'").fetchone()
+        self.assertIsNotNone(row)
+        withdrawn=self.snapshot();withdrawn['reviews'][0]['state']='DISMISSED'
+        collector.apply(self.db,'one',self.policy,withdrawn,101)
+        self.assertEqual(self.db.execute('SELECT state FROM assignments WHERE id=?',(row['id'],)).fetchone()[0],'cancelled')
+        restored=self.snapshot();restored['reviews'][0]['id']=1000
+        collector.apply(self.db,'one',self.policy,restored,102)
+        self.assertIn(row['id'],[a['id'] for a in tick(self.db)])
+        self.assertEqual(self.db.execute('SELECT deliveries FROM assignments WHERE id=?',(row['id'],)).fetchone()[0],0)
+        self.db.execute("UPDATE assignments SET state='cancelled',deliveries=3 WHERE id=?",(row['id'],))
+        self.assertNotIn(row['id'],[a['id'] for a in tick(self.db)])
