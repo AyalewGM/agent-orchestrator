@@ -270,6 +270,8 @@ class Dispatcher:
                 with transaction(self.db):
                     self.db.execute("UPDATE assignments SET state='done',response=? WHERE id=?", (json.dumps(response), a['id']))
                     if response.get('verdict') in ('blocked','pending'):
+                        if a['role'] in desktop.REVIEWERS.values():
+                            self.db.execute("UPDATE assignments SET state='cancelled',token=NULL WHERE id=?",(a['id'],))
                         self.db.execute("UPDATE tasks SET status='blocked',blocker='Codex execution environment or evidence prerequisite blocked; inspect recorded result' WHERE id=?", (task['id'],))
                         desktop._cancel(self.db,task['id'],task['fence'])
                     elif response.get('tests_passed') is False or response.get('verdict') == 'reject':
@@ -304,7 +306,13 @@ class Dispatcher:
             profile = tomllib.loads((ROOT / '.codex/agents' / (offer['role'] + '.toml')).read_text())
             prompt = profile['developer_instructions'] + '\nRole: '+offer['role']+'\nTask: ' + policy['objective'] + '\n'
             prompt += 'Return only JSON with head (actual clean committed HEAD), evidence and tests_passed or verdict as appropriate. Integration uses integration_passed. No nested agents, merge, deploy, learner-data changes, activation, credentials or governance writes. Agent prose is not authenticated approval.'
-            result = await self.adapter_factory(offer['role']).run(prompt=prompt, cwd=cwd, persist_ids=persist)
+            adapter=self.adapter_factory(offer['role'])
+            from .test_runner import ConfinedPytestAdapter,TestRunnerError
+            if isinstance(adapter,ConfinedPytestAdapter) and offer['role']!='test_runner':
+                raise TestRunnerError('Confined test executor cannot fulfill an independent review role')
+            result = await adapter.run(prompt=prompt, cwd=cwd, persist_ids=persist)
+            if getattr(result,'executor',None)=='os-confined-pytest' and offer['role']!='test_runner':
+                raise TestRunnerError('Test result cannot count as independent review',tests_executed=None)
             response = json.loads(result.final_message)
             if getattr(result,'executor',None)=='os-confined-pytest':
                 response={'head':result.head_sha,'tests_passed':result.succeeded,'evidence':response,'executor':'os-confined-pytest'}
